@@ -31,9 +31,11 @@ function main(sudokuString){
 }
 
 function parseInput(sudokuString){
-    // let length = ;
-    // let chars = /^\d+$/.test(sudokuString)
-    if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))) return false;
+    if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
+        console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
+            + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
+        return false;
+    }
     main(sudokuString);
 }
 
