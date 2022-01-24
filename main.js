@@ -3,8 +3,8 @@ let test;
 // '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
 
 
-function main(string){
-    test = new Sudoku(string);
+function main(sudokuString){
+    test = new Sudoku(sudokuString);
     // test = new Sudoku("004050000" +
     //     "900734600" +
     //     "003021049" +
@@ -28,6 +28,13 @@ function main(string){
     //     "400000200");
     // test2.solve();
     // console.log(test2.getSudoku());
+}
+
+function parseInput(sudokuString){
+    // let length = ;
+    // let chars = /^\d+$/.test(sudokuString)
+    if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))) return false;
+    main(sudokuString);
 }
 
 function solveSudoku(){
