@@ -8,10 +8,11 @@
     </head>
 
     <label>
-        <input type="text"> </label>
+        <input type="text" id="input">
+        <button onclick="main(document.getElementById('input').value)">Input Sudoku</button>
     </label>
 
-    <body onload="onload()">
+    <body>
         <div id = "sudoku"></div>
         <button id ="but" onclick="solveSudoku()">Solve</button>
     </body>

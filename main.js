@@ -1,15 +1,19 @@
 let test;
 
-function main(){
-    test = new Sudoku("004050000" +
-        "900734600" +
-        "003021049" +
-        "035090480" +
-        "090000030" +
-        "076010920" +
-        "310970200" +
-        "009182003" +
-        "000060100");
+// '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
+
+
+function main(string){
+    test = new Sudoku(string);
+    // test = new Sudoku("004050000" +
+    //     "900734600" +
+    //     "003021049" +
+    //     "035090480" +
+    //     "090000030" +
+    //     "076010920" +
+    //     "310970200" +
+    //     "009182003" +
+    //     "000060100");
     // test.solve();
     // console.log(test.getSudoku());
 
@@ -29,8 +33,4 @@ function main(){
 function solveSudoku(){
     test.solve();
     test.updateNumbers();
-}
-
-function onload(){
-    this.main();
 }
