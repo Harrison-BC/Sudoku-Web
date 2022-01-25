@@ -1,10 +1,10 @@
-let test;
+let currSudoku;
 
 // '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
 
 
 function main(sudokuString){
-    test = new Sudoku(sudokuString);
+    currSudoku = new Sudoku(sudokuString);
     // test = new Sudoku("004050000" +
     //     "900734600" +
     //     "003021049" +
@@ -40,6 +40,6 @@ function parseInput(sudokuString){
 }
 
 function solveSudoku(){
-    test.solve();
-    test.updateNumbers();
+    currSudoku.solve();
+    if(currSudoku.isValidSudoku()) currSudoku.updateNumbers();
 }

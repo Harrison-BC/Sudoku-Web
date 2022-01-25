@@ -101,6 +101,10 @@ class Tile {
         if(pastUnknownTile == null) return this;
         while(pastUnknownTile.getIsKnown()){
             pastUnknownTile = pastUnknownTile.getPastTile();
+            if(pastUnknownTile == null) {
+                console.log("unsolvable sudoku");
+                return;
+            }
         }
         return pastUnknownTile;
     }
