@@ -1,15 +1,19 @@
-let test;
+let currSudoku;
 
-function main(){
-    test = new Sudoku("004050000" +
-        "900734600" +
-        "003021049" +
-        "035090480" +
-        "090000030" +
-        "076010920" +
-        "310970200" +
-        "009182003" +
-        "000060100");
+// '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
+
+
+function main(sudokuString){
+    currSudoku = new Sudoku(sudokuString);
+    // test = new Sudoku("004050000" +
+    //     "900734600" +
+    //     "003021049" +
+    //     "035090480" +
+    //     "090000030" +
+    //     "076010920" +
+    //     "310970200" +
+    //     "009182003" +
+    //     "000060100");
     // test.solve();
     // console.log(test.getSudoku());
 
@@ -26,11 +30,16 @@ function main(){
     // console.log(test2.getSudoku());
 }
 
-function solveSudoku(){
-    test.solve();
-    test.updateNumbers();
+function parseInput(sudokuString){
+    if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
+        console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
+            + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
+        return false;
+    }
+    main(sudokuString);
 }
 
-function onload(){
-    this.main();
+function solveSudoku(){
+    currSudoku.solve();
+    if(currSudoku.isValidSudoku()) currSudoku.updateNumbers();
 }

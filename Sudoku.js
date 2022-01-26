@@ -2,22 +2,29 @@ class Sudoku {
     grid = new Array(9).fill(null).map(()=>new Array(9).fill(null));
     rootTile = null;
     string;
+    templateIsValid = true;
 
     constructor(string) {
         this.string = string;
         const board = new Array(9).fill(null).map(()=>new Array(9).fill(0));
 
+        let j = 0;
         // create Tiles as divs in html
         for (let i = 0; i < 81; i++) {
+            if ((i % 9 == 0)) j = 0;
             let element = document.getElementById("sudoku")
             let tileDiv = document.createElement("div");
             let tileID = document.createElement("p");
             tileID.className = "number";
+
             tileDiv.setAttribute("onclick", "main()");
             tileDiv.className = "tile";
+            if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "thick solid black";
+            if((j == 2 || j == 5)) tileDiv.style.borderRight = "thick solid black";
             tileDiv.id = i.toString();
             tileDiv.appendChild(tileID);
             element.appendChild(tileDiv);
+            j++;
         }
 
         for(let i = 0; i < 9; i++){
@@ -29,7 +36,7 @@ class Sudoku {
                 let paragraph = tileDiv.getElementsByClassName("number");
                 if (string[(i*9)+j] != 0){
                     paragraph[0].innerHTML = string[(i*9)+j];
-                }
+                } else paragraph[0].innerHTML = "";
             }
         }
 
@@ -52,6 +59,21 @@ class Sudoku {
         }
 
         this.parseBoard(tileBoard);
+        if(!this.isValidSudoku()) {
+            this.templateIsValid = false;
+            console.log("incorrect sudoku entered");
+        }
+    }
+
+    isValidSudoku(){
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[0].length; j++) {
+                if(!this.grid[i][j].isValid()){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     setRootTile(rootTile) {
@@ -158,7 +180,7 @@ class Sudoku {
     }
 
      solve(){
-        while(true){
+        while(this.templateIsValid){
             if(!this.rootTile.getIsKnown()){
                 if(this.rootTile.getNum() < 9){
                     if(this.setNextValidNumber(this.rootTile)){

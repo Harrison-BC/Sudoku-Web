@@ -19,8 +19,8 @@ body {
 }
 
 #sudoku {
-    width: 468px;
-    height: 468px;
+    width: 476px;
+    height: 473px;
     margin: auto;
     border: 5px solid black;
 }
