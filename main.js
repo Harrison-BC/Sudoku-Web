@@ -11,7 +11,7 @@ function main(sudokuString){
         var name = event.key;
         var code = event.code;
         // Alert the key name and key code on keydown
-        currSudoku.updateNumber();
+        currSudoku.updateNumber(name);
     }, false);
 
     // test = new Sudoku("004050000" +
@@ -56,4 +56,8 @@ function parseInput(sudokuString){
 function solveSudoku(){
     currSudoku.solve();
     if(currSudoku.isValidSudoku()) currSudoku.updateNumbers();
+}
+
+function onLoad(){
+    main('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
 }

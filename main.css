@@ -5,7 +5,7 @@
     float: left;
     border: 1px solid black;
     margin: 0;
-    line-height: 0px;
+    line-height: 0;
 }
 
 p.number {

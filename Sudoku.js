@@ -227,7 +227,9 @@ class Sudoku {
                 let idNum = (i*9)+j;
                 let tileDiv = document.getElementById(idNum.toString());
                 let paragraph = tileDiv.getElementsByClassName("number");
-                paragraph[0].innerHTML = this.grid[i][j].getNum();
+                if(this.grid[i][j].getNum() != 0) {
+                    paragraph[0].innerHTML = this.grid[i][j].getNum();
+                }
             }
         }
     }
@@ -247,7 +249,11 @@ class Sudoku {
         this.pastTile = tileElement;
     }
 
-    updateNumber(){
-        console.log(this.activeTile.getNum());
+    updateNumber(number){
+        if(!isNaN(number)){
+            this.activeTile.num = number;
+            console.log(this.activeTile.getNum());
+            this.updateNumbers();
+        }
     }
 }
