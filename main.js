@@ -35,6 +35,7 @@ function clicked(id){
 }
 
 function parseInput(sudokuString){
+    document.getElementById('input').value = '';    // clears input field after clicking import
     if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
         console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
             + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
