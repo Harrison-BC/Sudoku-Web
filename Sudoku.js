@@ -4,6 +4,7 @@ class Sudoku {
     string;
     templateIsValid = true;
     pastTile = null;
+    activeTile = null;
 
     constructor(string) {
         this.string = string;
@@ -234,15 +235,19 @@ class Sudoku {
     setActiveTile(id){
         let col = id % 9;
         let row = ((id -col) / 9);
-        if(this.pastTile != null) {
-            this.pastTile.getElementsByClassName("number")[0].innerHTML = "";
-            this.pastTile.style.removeProperty('background-color');
+        this.activeTile = this.grid[row][col];
 
+        if(this.pastTile != null) {
+            this.pastTile.style.removeProperty('background-color');
         }
+
         let tileElement = document.getElementById(id);
-        tileElement.style.backgroundColor = "blue";
+        tileElement.style.backgroundColor = "dodgerblue";
         let pElements = tileElement.getElementsByClassName("number");
-        pElements[0].innerHTML = "clicked";
         this.pastTile = tileElement;
+    }
+
+    updateNumber(){
+        console.log(this.activeTile.getNum());
     }
 }

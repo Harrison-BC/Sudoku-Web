@@ -1,10 +1,19 @@
 let currSudoku;
 
 // '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
+// 111111111222222222333333333444444444555555555666666666777777777888888888999999999
 
 
 function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
+
+    document.addEventListener('keypress', (event) => {
+        var name = event.key;
+        var code = event.code;
+        // Alert the key name and key code on keydown
+        currSudoku.updateNumber();
+    }, false);
+
     // test = new Sudoku("004050000" +
     //     "900734600" +
     //     "003021049" +

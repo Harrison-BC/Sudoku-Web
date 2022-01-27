@@ -4,14 +4,21 @@
     height: 50px;
     float: left;
     border: 1px solid black;
+    margin: 0;
+    line-height: 0px;
+}
+
+p.number {
+    font-size: 25px;
 }
 
 .tile:hover {
-    background-color: cornflowerblue;
+    background-color: lightskyblue;
 }
 
 body {
-    text-align:center
+    text-align:center;
+    font-weight: bolder;
 }
 
 #but {
