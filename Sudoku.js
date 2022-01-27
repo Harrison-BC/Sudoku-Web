@@ -234,10 +234,15 @@ class Sudoku {
     setActiveTile(id){
         let col = id % 9;
         let row = ((id -col) / 9);
-        if(this.pastTile != null) this.pastTile.innerHTML = "";
+        if(this.pastTile != null) {
+            this.pastTile.getElementsByClassName("number")[0].innerHTML = "";
+            this.pastTile.style.removeProperty('background-color');
+
+        }
         let tileElement = document.getElementById(id);
+        tileElement.style.backgroundColor = "blue";
         let pElements = tileElement.getElementsByClassName("number");
         pElements[0].innerHTML = "clicked";
-        this.pastTile = pElements[0];
+        this.pastTile = tileElement;
     }
 }
