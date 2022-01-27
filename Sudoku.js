@@ -3,6 +3,7 @@ class Sudoku {
     rootTile = null;
     string;
     templateIsValid = true;
+    pastTile = null;
 
     constructor(string) {
         this.string = string;
@@ -17,7 +18,7 @@ class Sudoku {
             let tileID = document.createElement("p");
             tileID.className = "number";
 
-            tileDiv.setAttribute("onclick", "main()");
+            tileDiv.setAttribute("onclick", "clicked(" + i + ")");
             tileDiv.className = "tile";
             if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "thick solid black";
             if((j == 2 || j == 5)) tileDiv.style.borderRight = "thick solid black";
@@ -228,5 +229,15 @@ class Sudoku {
                 paragraph[0].innerHTML = this.grid[i][j].getNum();
             }
         }
+    }
+
+    setActiveTile(id){
+        let col = id % 9;
+        let row = ((id -col) / 9);
+        if(this.pastTile != null) this.pastTile.innerHTML = "";
+        let tileElement = document.getElementById(id);
+        let pElements = tileElement.getElementsByClassName("number");
+        pElements[0].innerHTML = "clicked";
+        this.pastTile = pElements[0];
     }
 }

@@ -30,6 +30,10 @@ function main(sudokuString){
     // console.log(test2.getSudoku());
 }
 
+function clicked(id){
+    currSudoku.setActiveTile(id);
+}
+
 function parseInput(sudokuString){
     if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
         console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
