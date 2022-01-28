@@ -50,7 +50,7 @@ class Sudoku {
             for(let j = 0; j < board[0].length; j++){
                 let currentTile = new Tile(board[i][j], pastTile);
                 tileBoard[i][j] = currentTile;
-
+                currentTile.id = (i*9)+j;
                 // set nextTile of pastTile
                 if(pastTile != null) pastTile.setNextTile(tileBoard[i][j]);
                 if(board[i][j] != 0) currentTile.setKnown(true);
@@ -221,7 +221,7 @@ class Sudoku {
         return t.getNum() + 1;
     }
 
-    updateNumbers(){
+    updateHtmlNumbers(){
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 let idNum = (i*9)+j;
@@ -229,6 +229,8 @@ class Sudoku {
                 let paragraph = tileDiv.getElementsByClassName("number");
                 if(this.grid[i][j].getNum() != 0) {
                     paragraph[0].innerHTML = this.grid[i][j].getNum();
+                } else {
+                    paragraph[0].innerHTML = "";
                 }
             }
         }
@@ -252,8 +254,25 @@ class Sudoku {
     updateNumber(number){
         if(!isNaN(number)){
             this.activeTile.num = number;
-            console.log(this.activeTile.getNum());
-            this.updateNumbers();
+            console.log("number is now: " + this.activeTile.getNum());
+            this.updateHtmlNumbers();
+        }
+    }
+
+    arrowKeys(key){
+        switch (key) {
+            case "ArrowLeft":
+                if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
+                break;
+            case "ArrowUp":
+                if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
+                break;
+            case "ArrowRight":
+                if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
+                break;
+            case "ArrowDown":
+                if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
+                break;
         }
     }
 }

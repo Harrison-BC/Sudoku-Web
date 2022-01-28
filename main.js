@@ -10,9 +10,14 @@ function main(sudokuString){
     document.addEventListener('keypress', (event) => {
         var name = event.key;
         var code = event.code;
-        // Alert the key name and key code on keydown
-        currSudoku.updateNumber(name);
+        console.log(code);
+        if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
+        else currSudoku.updateNumber(name);
     }, false);
+
+    document.onkeydown = function (event) {
+        currSudoku.arrowKeys(event.key);
+    };
 
     // test = new Sudoku("004050000" +
     //     "900734600" +
@@ -53,9 +58,13 @@ function parseInput(sudokuString){
     main(sudokuString);
 }
 
+
+
 function solveSudoku(){
-    currSudoku.solve();
-    if(currSudoku.isValidSudoku()) currSudoku.updateNumbers();
+    if(currSudoku.isValidSudoku()) {
+        currSudoku.solve();
+        currSudoku.updateNumbers();
+    }
 }
 
 function onLoad(){
