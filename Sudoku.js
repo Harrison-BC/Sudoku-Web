@@ -1,12 +1,14 @@
 class Sudoku {
     grid = new Array(9).fill(null).map(()=>new Array(9).fill(null));
+    numberBoard = new Array(9).fill(null).map(()=>new Array(9).fill(0));
     rootTile = null;
     string;
     templateIsValid = true;
+    activeTile = null;
+    totalClues = 0;
 
     constructor(string) {
         this.string = string;
-        const board = new Array(9).fill(null).map(()=>new Array(9).fill(0));
 
         let j = 0;
         // create Tiles as divs in html
@@ -17,7 +19,7 @@ class Sudoku {
             let tileID = document.createElement("p");
             tileID.className = "number";
 
-            tileDiv.setAttribute("onclick", "main()");
+            tileDiv.setAttribute("onclick", "clicked(" + i + ")");
             tileDiv.className = "tile";
             if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "thick solid black";
             if((j == 2 || j == 5)) tileDiv.style.borderRight = "thick solid black";
@@ -27,9 +29,20 @@ class Sudoku {
             j++;
         }
 
+        this.changeNumbers(string);
+
+        if(!this.isValidSudoku()) {
+            this.templateIsValid = false;
+            console.log("incorrect sudoku entered");
+        }
+    }
+
+    changeNumbers(string){
+        // these loops try the boards
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
-                board[i][j] = string[(i*9)+j];
+                // set
+                this.numberBoard[i][j] = string[(i*9)+j];
                 let idNum = (i*9)+j;
 
                 let tileDiv = document.getElementById(idNum.toString());
@@ -44,25 +57,20 @@ class Sudoku {
 
         let pastTile = null;
 
-        for(let i = 0; i < board.length; i++){
-            for(let j = 0; j < board[0].length; j++){
-                let currentTile = new Tile(board[i][j], pastTile);
+        for(let i = 0; i < this.numberBoard.length; i++){
+            for(let j = 0; j < this.numberBoard[0].length; j++){
+                let currentTile = new Tile(this.numberBoard[i][j], pastTile);
                 tileBoard[i][j] = currentTile;
-
+                currentTile.id = (i*9)+j;
                 // set nextTile of pastTile
                 if(pastTile != null) pastTile.setNextTile(tileBoard[i][j]);
-                if(board[i][j] != 0) currentTile.setKnown(true);
+                if(this.numberBoard[i][j] != 0) currentTile.setKnown(true);
 
                 // set pastTile to currentTile
                 pastTile = currentTile;
             }
         }
-
-        this.parseBoard(tileBoard);
-        if(!this.isValidSudoku()) {
-            this.templateIsValid = false;
-            console.log("incorrect sudoku entered");
-        }
+        this.setColsRowsAndSquares(tileBoard);
     }
 
     isValidSudoku(){
@@ -80,7 +88,7 @@ class Sudoku {
         this.rootTile = rootTile;
     }
 
-    parseBoard(tileBoard){
+    setColsRowsAndSquares(tileBoard){
         var columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
         var currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
 
@@ -219,14 +227,61 @@ class Sudoku {
         return t.getNum() + 1;
     }
 
-    updateNumbers(){
+    updateHtmlNumbers(){
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 let idNum = (i*9)+j;
                 let tileDiv = document.getElementById(idNum.toString());
                 let paragraph = tileDiv.getElementsByClassName("number");
-                paragraph[0].innerHTML = this.grid[i][j].getNum();
+                if(this.grid[i][j].getNum() != 0) {
+                    paragraph[0].innerHTML = this.grid[i][j].getNum();
+                } else {
+                    paragraph[0].innerHTML = "";
+                }
             }
+        }
+    }
+
+    setActiveTile(id){
+        let col = id % 9;
+        let row = ((id -col) / 9);
+        this.activeTile = this.grid[row][col];
+
+        if(this.pastTile != null) {
+            this.pastTile.style.removeProperty('background-color');
+        }
+
+        let tileElement = document.getElementById(id);
+        tileElement.style.backgroundColor = "dodgerblue";
+        let pElements = tileElement.getElementsByClassName("number");
+        this.pastTile = tileElement;
+    }
+
+    updateNumber(number){
+        if(!isNaN(number)){
+            this.activeTile.num = number;
+            console.log("number is now: " + this.activeTile.getNum());
+            this.updateHtmlNumbers();
+            if(!this.activeTile.isValid()){
+                console.log("uhoh");
+            }
+        }
+    }
+
+    arrowKeys(key){
+        switch (key) {
+            case "ArrowLeft":
+                if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
+                break;
+            case "ArrowUp":
+                if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
+                break;
+            case "ArrowRight":
+                if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
+                break;
+            case "ArrowDown":
+                if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
+                break;
         }
     }
 }

@@ -1,45 +1,48 @@
 let currSudoku;
 
 // '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
+// 111111111222222222333333333444444444555555555666666666777777777888888888999999999
 
 
 function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
-    // test = new Sudoku("004050000" +
-    //     "900734600" +
-    //     "003021049" +
-    //     "035090480" +
-    //     "090000030" +
-    //     "076010920" +
-    //     "310970200" +
-    //     "009182003" +
-    //     "000060100");
-    // test.solve();
-    // console.log(test.getSudoku());
 
-    // const test2 = new Sudoku("900800000" +
-    //     "000000500" +
-    //     "000000000" +
-    //     "020010003" +
-    //     "010000050" +
-    //     "000400070" +
-    //     "708600000" +
-    //     "000030100" +
-    //     "400000200");
-    // test2.solve();
-    // console.log(test2.getSudoku());
+    document.addEventListener('keypress', (event) => {
+        var name = event.key;
+        var code = event.code;
+        console.log(code);
+        if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
+        else currSudoku.updateNumber(name);
+    }, false);
+
+    document.onkeydown = function (event) {
+        currSudoku.arrowKeys(event.key);
+    };
 }
 
-function parseInput(sudokuString){
+function clicked(id){
+    currSudoku.setActiveTile(id);
+}
+
+function parseTextInput(sudokuString){
+    document.getElementById('input').value = '';    // clears input field after clicking import
     if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
         console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
             + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
         return false;
     }
-    main(sudokuString);
+    currSudoku.changeNumbers(sudokuString);
 }
 
+
+
 function solveSudoku(){
-    currSudoku.solve();
-    if(currSudoku.isValidSudoku()) currSudoku.updateNumbers();
+    if(currSudoku.isValidSudoku()) {
+        currSudoku.solve();
+        currSudoku.updateHtmlNumbers();
+    }
+}
+
+function onLoad(){
+    main('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
 }
