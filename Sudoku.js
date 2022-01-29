@@ -1,14 +1,14 @@
 class Sudoku {
     grid = new Array(9).fill(null).map(()=>new Array(9).fill(null));
+    numberBoard = new Array(9).fill(null).map(()=>new Array(9).fill(0));
     rootTile = null;
     string;
     templateIsValid = true;
-    pastTile = null;
     activeTile = null;
+    totalClues = 0;
 
     constructor(string) {
         this.string = string;
-        const board = new Array(9).fill(null).map(()=>new Array(9).fill(0));
 
         let j = 0;
         // create Tiles as divs in html
@@ -29,9 +29,20 @@ class Sudoku {
             j++;
         }
 
+        this.changeNumbers(string);
+
+        if(!this.isValidSudoku()) {
+            this.templateIsValid = false;
+            console.log("incorrect sudoku entered");
+        }
+    }
+
+    changeNumbers(string){
+        // these loops try the boards
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
-                board[i][j] = string[(i*9)+j];
+                // set
+                this.numberBoard[i][j] = string[(i*9)+j];
                 let idNum = (i*9)+j;
 
                 let tileDiv = document.getElementById(idNum.toString());
@@ -46,25 +57,20 @@ class Sudoku {
 
         let pastTile = null;
 
-        for(let i = 0; i < board.length; i++){
-            for(let j = 0; j < board[0].length; j++){
-                let currentTile = new Tile(board[i][j], pastTile);
+        for(let i = 0; i < this.numberBoard.length; i++){
+            for(let j = 0; j < this.numberBoard[0].length; j++){
+                let currentTile = new Tile(this.numberBoard[i][j], pastTile);
                 tileBoard[i][j] = currentTile;
                 currentTile.id = (i*9)+j;
                 // set nextTile of pastTile
                 if(pastTile != null) pastTile.setNextTile(tileBoard[i][j]);
-                if(board[i][j] != 0) currentTile.setKnown(true);
+                if(this.numberBoard[i][j] != 0) currentTile.setKnown(true);
 
                 // set pastTile to currentTile
                 pastTile = currentTile;
             }
         }
-
-        this.parseBoard(tileBoard);
-        if(!this.isValidSudoku()) {
-            this.templateIsValid = false;
-            console.log("incorrect sudoku entered");
-        }
+        this.setColsRowsAndSquares(tileBoard);
     }
 
     isValidSudoku(){
@@ -82,7 +88,7 @@ class Sudoku {
         this.rootTile = rootTile;
     }
 
-    parseBoard(tileBoard){
+    setColsRowsAndSquares(tileBoard){
         var columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
         var currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
 
@@ -256,6 +262,9 @@ class Sudoku {
             this.activeTile.num = number;
             console.log("number is now: " + this.activeTile.getNum());
             this.updateHtmlNumbers();
+            if(!this.activeTile.isValid()){
+                console.log("uhoh");
+            }
         }
     }
 
