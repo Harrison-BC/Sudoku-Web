@@ -227,16 +227,25 @@ class Sudoku {
         return t.getNum() + 1;
     }
 
+    /**
+     * Updates the numbers
+     */
     updateHtmlNumbers(){
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 let idNum = (i*9)+j;
                 let tileDiv = document.getElementById(idNum.toString());
-                let paragraph = tileDiv.getElementsByClassName("number");
+                let paragraph =  tileDiv.getElementsByClassName("number");
                 if(this.grid[i][j].getNum() != 0) {
                     paragraph[0].innerHTML = this.grid[i][j].getNum();
                 } else {
                     paragraph[0].innerHTML = "";
+                }
+
+                if(this.grid[i][j].hasDiscrepancy) {
+                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "red";
+                } else {
+                    document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
                 }
             }
         }
@@ -246,10 +255,6 @@ class Sudoku {
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
-
-        if(this.pastTile != null) {
-            this.pastTile.style.removeProperty('background-color');
-        }
 
         let tileElement = document.getElementById(id);
         tileElement.style.backgroundColor = "dodgerblue";
@@ -261,25 +266,29 @@ class Sudoku {
         if(!isNaN(number)){
             this.activeTile.num = number;
             console.log("number is now: " + this.activeTile.getNum());
-            this.updateHtmlNumbers();
             if(!this.activeTile.isValid()){
                 console.log("uhoh");
             }
+            this.updateHtmlNumbers();
         }
     }
 
     arrowKeys(key){
         switch (key) {
             case "ArrowLeft":
+                this.updateHtmlNumbers();
                 if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
                 break;
             case "ArrowUp":
+                this.updateHtmlNumbers();
                 if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
                 break;
             case "ArrowRight":
+                this.updateHtmlNumbers();
                 if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
                 break;
             case "ArrowDown":
+                this.updateHtmlNumbers();
                 if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
                 break;
         }

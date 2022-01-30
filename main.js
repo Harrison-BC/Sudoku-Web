@@ -21,6 +21,7 @@ function main(sudokuString){
 }
 
 function clicked(id){
+    currSudoku.updateHtmlNumbers();
     currSudoku.setActiveTile(id);
 }
 

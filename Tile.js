@@ -6,6 +6,7 @@ class Tile {
     isKnown = false;
     pastTile;
     nextTile;
+    hasDiscrepancy = false;
 
     constructor(num, pastTile) {
         this.num = num;
@@ -75,7 +76,19 @@ class Tile {
     squareIsValid(){
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[0].length; j++) {
-                if (this.square[i][j] !== this && this.square[i][j].num == this.num && this.square[i][j].num != 0) return false;
+                if (this.square[i][j] !== this && this.square[i][j].num == this.num && this.square[i][j].num != 0){
+                    for(let k = 0; k < this.square.length; k++) {
+                        for(let l = 0; l < this.square[0].length; l++) {
+                            this.square[k][l].hasDiscrepancy = true;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        for(let k = 0; k < this.square.length; k++) {
+            for(let l = 0; l < this.square[0].length; l++) {
+                this.square[k][l].hasDiscrepancy = false;
             }
         }
         return true;
