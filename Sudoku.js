@@ -263,6 +263,10 @@ class Sudoku {
     }
 
     updateNumber(number){
+        if(number == 5) {
+            debugger;
+        }
+
         if(!isNaN(number)){
             this.activeTile.num = number;
             console.log("number is now: " + this.activeTile.getNum());

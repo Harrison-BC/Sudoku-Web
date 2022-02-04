@@ -74,18 +74,29 @@ class Tile {
     }
 
     squareIsValid(){
+        // create map and add numbers to it
+        let map = new Map();
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[0].length; j++) {
-                if (this.square[i][j] !== this && this.square[i][j].num == this.num && this.square[i][j].num != 0){
-                    for(let k = 0; k < this.square.length; k++) {
-                        for(let l = 0; l < this.square[0].length; l++) {
-                            this.square[k][l].hasDiscrepancy = true;
-                        }
-                    }
-                    return false;
+                if(this.square[i][j].num != 0) {
+                    if(isNaN(map.get(this.square[i][j].num))) map.set(this.square[i][j].num, 1);
+                    else map.set(this.square[i][j].num, map.get(this.square[i][j].num) + 1);
                 }
             }
         }
+
+        // loop through map and check for duplicates
+        for (let [key, value] of map) {
+            if (value > 1){
+                for(let k = 0; k < this.square.length; k++) {
+                    for(let l = 0; l < this.square[0].length; l++) {
+                        this.square[k][l].hasDiscrepancy = true;
+                    }
+                }
+                return false;
+            }
+        }
+
         for(let k = 0; k < this.square.length; k++) {
             for(let l = 0; l < this.square[0].length; l++) {
                 this.square[k][l].hasDiscrepancy = false;
@@ -98,8 +109,15 @@ class Tile {
         // check if contains more than 1 of same number
         for(let i = 0; i < this.row.length; i++) {
             if (this.row[i] !== this && this.row[i].num == this.num && this.row[i].num != 0){
+                for(let j = 0; j < this.row.length; j++) {
+                    this.row[j].hasDiscrepancy = true;
+                }
                 return false;
             }
+        }
+
+        for(let i = 0; i < this.row.length; i++) {
+            this.row[i].hasDiscrepancy = false;
         }
         return true;
     }

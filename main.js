@@ -12,7 +12,9 @@ function main(sudokuString){
         var code = event.code;
         console.log(code);
         if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
-        else currSudoku.updateNumber(name);
+        else {
+            currSudoku.updateNumber(name);
+        }
     }, false);
 
     document.onkeydown = function (event) {
