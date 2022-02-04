@@ -105,17 +105,31 @@ class Tile {
         return true;
     }
 
-    rowIsValid(){
-        // check if contains more than 1 of same number
-        for(let i = 0; i < this.row.length; i++) {
-            if (this.row[i] !== this && this.row[i].num == this.num && this.row[i].num != 0){
-                for(let j = 0; j < this.row.length; j++) {
-                    this.row[j].hasDiscrepancy = true;
-                }
-                return false;
+    duplicateInArray(array){
+         let map = new Map();
+         for(let j = 0; j < array.length; j++) {
+             if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
+             else map.set(array[j].num, map.get(array[j].num) + 1);
+         }
+
+        for (let [key, value] of map) {
+            if (key != 0 && value > 1){
+                return true;
             }
         }
+        return false;
+    }
 
+    rowIsValid(){
+         // sets tiles to red if the row is invalid
+        if (this.duplicateInArray(this.row)){
+            for(let j = 0; j < this.row.length; j++) {
+                this.row[j].hasDiscrepancy = true;
+            }
+            return false;
+        }
+
+        // unsets tiles to red if the row is valid
         for(let i = 0; i < this.row.length; i++) {
             this.row[i].hasDiscrepancy = false;
         }
@@ -123,10 +137,17 @@ class Tile {
     }
 
     colIsValid(){
-        for(let i = 0; i < this.row.length; i++) {
-            if (this.column[i] !== this && this.column[i].num == this.num && this.column[i].num != 0){
-                return false;
+        // sets tiles to red if the row is invalid
+        if (this.duplicateInArray(this.column)){
+            for(let j = 0; j < this.column.length; j++) {
+                this.column[j].hasDiscrepancy = true;
             }
+            return false;
+        }
+
+        // unsets tiles to red if the row is valid
+        for(let i = 0; i < this.column.length; i++) {
+            this.column[i].hasDiscrepancy = false;
         }
         return true;
     }

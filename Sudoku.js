@@ -243,7 +243,7 @@ class Sudoku {
                 }
 
                 if(this.grid[i][j].hasDiscrepancy) {
-                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "red";
+                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FFCCFF";
                 } else {
                     document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
                 }
