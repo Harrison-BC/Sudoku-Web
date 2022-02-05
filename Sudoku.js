@@ -82,8 +82,7 @@ class Sudoku {
 
         for(let i = 0; i < this.grid.length; i++) {
             for(let j = 0; j < this.grid[0].length; j++) {
-                console.log("uhh " + j);
-                let h = this.grid[i][j].isValid();
+                this.grid[i][j].isValid();
             }
         }
     }
@@ -104,12 +103,12 @@ class Sudoku {
     }
 
     setColsRowsAndSquares(tileBoard){
-        var columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
-        var currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
+        let columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
+        let currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
 
-        var leftSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
-        var middleSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
-        var rightSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let leftSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let middleSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let rightSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
 
         for(let row = 0; row < 9; row++){
             for (let column = 0; column < 9; column++){
