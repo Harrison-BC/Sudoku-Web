@@ -6,7 +6,8 @@ class Tile {
     isKnown = false;
     pastTile;
     nextTile;
-    hasDiscrepancy = false;
+    partOfInvalidRowColOrSquare = false;
+    responsibleForDiscrepancy = false;
 
     constructor(num, pastTile) {
         this.num = num;
@@ -74,6 +75,7 @@ class Tile {
 
         for (let [key, value] of map) {
             if (key != 0 && value > 1){
+                if(key == this.num) this.responsibleForDiscrepancy = true;
                 return true;
             }
         }
@@ -88,12 +90,8 @@ class Tile {
          let squareValid = this.squareIsValid();
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
-         // this.setSquareDiscrepancy(!squareValid);
-         // this.setRowDiscrepancy(!rowValid);
-         // this.setColDiscrepancy(!colValid);
-         if(!squareValid || !rowValid || !colValid) this.hasDiscrepancy = true;
+         if(!squareValid || !rowValid || !colValid) this.partOfInvalidRowColOrSquare = true;
          return (squareValid && rowValid && colValid);
-         // return (this.squareIsValid() && this.rowIsValid() && this.colIsValid());
     }
 
     squareIsValid(){
@@ -111,6 +109,7 @@ class Tile {
         // loop through map and check for duplicates
         for (let [key, value] of map) {
             if (value > 1){
+                if(key == this.num) this.responsibleForDiscrepancy = true;
                 return false;
             }
         }
@@ -122,9 +121,9 @@ class Tile {
         for(let k = 0; k < this.square.length; k++) {
             for(let l = 0; l < this.square[0].length; l++) {
                 if(discrepancy){
-                    this.square[k][l].hasDiscrepancy = discrepancy;
+                    this.square[k][l].partOfDiscrepancy = discrepancy;
                 } else if(!this.square[k][l].rowIsValid() || !this.square[k][l].colIsValid()){
-                    this.square[k][l].hasDiscrepancy = false;
+                    this.square[k][l].partOfDiscrepancy = false;
                 }
             }
         }
@@ -143,9 +142,9 @@ class Tile {
     setRowDiscrepancy(discrepancy){
         for(let i = 0; i < this.row.length; i++) {
             if(discrepancy){
-                this.row[i].hasDiscrepancy = discrepancy;
+                this.row[i].partOfDiscrepancy = discrepancy;
             } else if(!this.row[i].squareIsValid() || !this.row[i].colIsValid()){
-                this.row[i].hasDiscrepancy = discrepancy;
+                this.row[i].partOfDiscrepancy = discrepancy;
             }
         }
     }
@@ -162,9 +161,9 @@ class Tile {
     setColDiscrepancy(discrepancy){
         for(let i = 0; i < this.column.length; i++) {
             if(discrepancy){
-                this.column[i].hasDiscrepancy = discrepancy;
+                this.column[i].partOfDiscrepancy = discrepancy;
             } else if(!this.column[i].squareIsValid() || !this.column[i].colIsValid()){
-                this.column[i].hasDiscrepancy = discrepancy;
+                this.column[i].partOfDiscrepancy = discrepancy;
             }
         }
     }
