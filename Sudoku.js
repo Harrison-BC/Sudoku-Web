@@ -73,6 +73,21 @@ class Sudoku {
         this.setColsRowsAndSquares(tileBoard);
     }
 
+    setIncorrectTiles(){
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[0].length; j++) {
+                this.grid[i][j].hasDiscrepancy = false;
+            }
+        }
+
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[0].length; j++) {
+                console.log("uhh " + j);
+                let h = this.grid[i][j].isValid();
+            }
+        }
+    }
+
     isValidSudoku(){
         for(let i = 0; i < this.grid.length; i++) {
             for(let j = 0; j < this.grid[0].length; j++) {
@@ -243,7 +258,7 @@ class Sudoku {
                 }
 
                 if(this.grid[i][j].hasDiscrepancy) {
-                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FFCCFF";
+                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF7F7F";
                 } else {
                     document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
                 }
@@ -263,16 +278,10 @@ class Sudoku {
     }
 
     updateNumber(number){
-        if(number == 5) {
-            debugger;
-        }
-
         if(!isNaN(number)){
-            this.activeTile.num = number;
-            console.log("number is now: " + this.activeTile.getNum());
-            if(!this.activeTile.isValid()){
-                console.log("uhoh");
-            }
+            this.activeTile.setNum(number);
+            // console.log("number is now: " + this.activeTile.getNum());
+            this.setIncorrectTiles();
             this.updateHtmlNumbers();
         }
     }

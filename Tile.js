@@ -65,12 +65,35 @@ class Tile {
         return this.square;
     }
 
+    duplicateInArray(array){
+        let map = new Map();
+        for(let j = 0; j < array.length; j++) {
+            if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
+            else map.set(array[j].num, map.get(array[j].num) + 1);
+        }
+
+        for (let [key, value] of map) {
+            if (key != 0 && value > 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Checks if a Tile is valid.
      * @return
      */
      isValid(){
-         return this.squareIsValid() && this.rowIsValid() && this.colIsValid();
+         let squareValid = this.squareIsValid();
+         let rowValid = this.rowIsValid();
+         let colValid = this.colIsValid();
+         // this.setSquareDiscrepancy(!squareValid);
+         // this.setRowDiscrepancy(!rowValid);
+         // this.setColDiscrepancy(!colValid);
+         if(!squareValid || !rowValid || !colValid) this.hasDiscrepancy = true;
+         return (squareValid && rowValid && colValid);
+         // return (this.squareIsValid() && this.rowIsValid() && this.colIsValid());
     }
 
     squareIsValid(){
@@ -88,68 +111,62 @@ class Tile {
         // loop through map and check for duplicates
         for (let [key, value] of map) {
             if (value > 1){
-                for(let k = 0; k < this.square.length; k++) {
-                    for(let l = 0; l < this.square[0].length; l++) {
-                        this.square[k][l].hasDiscrepancy = true;
-                    }
-                }
                 return false;
             }
         }
 
-        for(let k = 0; k < this.square.length; k++) {
-            for(let l = 0; l < this.square[0].length; l++) {
-                this.square[k][l].hasDiscrepancy = false;
-            }
-        }
         return true;
     }
 
-    duplicateInArray(array){
-         let map = new Map();
-         for(let j = 0; j < array.length; j++) {
-             if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
-             else map.set(array[j].num, map.get(array[j].num) + 1);
-         }
-
-        for (let [key, value] of map) {
-            if (key != 0 && value > 1){
-                return true;
+    setSquareDiscrepancy(discrepancy){
+        for(let k = 0; k < this.square.length; k++) {
+            for(let l = 0; l < this.square[0].length; l++) {
+                if(discrepancy){
+                    this.square[k][l].hasDiscrepancy = discrepancy;
+                } else if(!this.square[k][l].rowIsValid() || !this.square[k][l].colIsValid()){
+                    this.square[k][l].hasDiscrepancy = false;
+                }
             }
         }
-        return false;
     }
 
     rowIsValid(){
+         console.log("row check")
          // sets tiles to red if the row is invalid
         if (this.duplicateInArray(this.row)){
-            for(let j = 0; j < this.row.length; j++) {
-                this.row[j].hasDiscrepancy = true;
-            }
             return false;
         }
 
-        // unsets tiles to red if the row is valid
-        for(let i = 0; i < this.row.length; i++) {
-            this.row[i].hasDiscrepancy = false;
-        }
         return true;
+    }
+
+    setRowDiscrepancy(discrepancy){
+        for(let i = 0; i < this.row.length; i++) {
+            if(discrepancy){
+                this.row[i].hasDiscrepancy = discrepancy;
+            } else if(!this.row[i].squareIsValid() || !this.row[i].colIsValid()){
+                this.row[i].hasDiscrepancy = discrepancy;
+            }
+        }
     }
 
     colIsValid(){
         // sets tiles to red if the row is invalid
         if (this.duplicateInArray(this.column)){
-            for(let j = 0; j < this.column.length; j++) {
-                this.column[j].hasDiscrepancy = true;
-            }
             return false;
         }
 
-        // unsets tiles to red if the row is valid
-        for(let i = 0; i < this.column.length; i++) {
-            this.column[i].hasDiscrepancy = false;
-        }
         return true;
+    }
+
+    setColDiscrepancy(discrepancy){
+        for(let i = 0; i < this.column.length; i++) {
+            if(discrepancy){
+                this.column[i].hasDiscrepancy = discrepancy;
+            } else if(!this.column[i].squareIsValid() || !this.column[i].colIsValid()){
+                this.column[i].hasDiscrepancy = discrepancy;
+            }
+        }
     }
 
 
