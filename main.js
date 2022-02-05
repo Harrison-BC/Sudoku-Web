@@ -23,8 +23,8 @@ function main(sudokuString){
 }
 
 function clicked(id){
-    currSudoku.updateHtmlNumbers();
     currSudoku.setActiveTile(id);
+    currSudoku.updateHtmlNumbers();
 }
 
 function parseTextInput(sudokuString){

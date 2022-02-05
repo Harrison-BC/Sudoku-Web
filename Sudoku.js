@@ -266,6 +266,10 @@ class Sudoku {
                 } else {
                     document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
                 }
+
+                // set the active tile colour
+                let activeTileElement = document.getElementById(this.activeTile.id);
+                activeTileElement.style.backgroundColor = "dodgerblue";
             }
         }
     }
@@ -274,11 +278,6 @@ class Sudoku {
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
-
-        let tileElement = document.getElementById(id);
-        tileElement.style.backgroundColor = "dodgerblue";
-        let pElements = tileElement.getElementsByClassName("number");
-        this.pastTile = tileElement;
     }
 
     updateNumber(number){
@@ -297,20 +296,21 @@ class Sudoku {
         }
         switch (key) {
             case "ArrowLeft":
-                this.updateHtmlNumbers();
                 if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
+                this.updateHtmlNumbers();
                 break;
             case "ArrowUp":
-                this.updateHtmlNumbers();
                 if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
+                this.updateHtmlNumbers();
                 break;
             case "ArrowRight":
-                this.updateHtmlNumbers();
                 if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
+                this.updateHtmlNumbers();
                 break;
             case "ArrowDown":
-                this.updateHtmlNumbers();
+
                 if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
+                this.updateHtmlNumbers();
                 break;
         }
     }
