@@ -46,7 +46,7 @@ function solveSudoku(){
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
     } else {
-        console.log("can't solve due to invalid or not enough clues")
+        console.log(currSudoku.totalClues);
     }
 }
 

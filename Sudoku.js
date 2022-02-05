@@ -21,8 +21,8 @@ class Sudoku {
 
             tileDiv.setAttribute("onclick", "clicked(" + i + ")");
             tileDiv.className = "tile";
-            if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "thick solid black";
-            if((j == 2 || j == 5)) tileDiv.style.borderRight = "thick solid black";
+            if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "2px solid black";
+            if((j == 2 || j == 5)) tileDiv.style.borderRight = "2px solid black";
             tileDiv.id = i.toString();
             tileDiv.appendChild(tileID);
             element.appendChild(tileDiv);
@@ -42,7 +42,7 @@ class Sudoku {
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 // set
-                this.numberBoard[i][j] = string[(i*9)+j];
+                this.numberBoard[i][j] = parseInt(string[(i*9)+j]);
                 let idNum = (i*9)+j;
 
                 let tileDiv = document.getElementById(idNum.toString());
