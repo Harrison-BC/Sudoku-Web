@@ -60,6 +60,7 @@ class Sudoku {
         for(let i = 0; i < this.numberBoard.length; i++){
             for(let j = 0; j < this.numberBoard[0].length; j++){
                 let currentTile = new Tile(this.numberBoard[i][j], pastTile);
+                if(this.numberBoard[i][j] != 0) this.totalClues++;
                 tileBoard[i][j] = currentTile;
                 currentTile.id = (i*9)+j;
                 // set nextTile of pastTile
@@ -258,6 +259,7 @@ class Sudoku {
                 }
 
                 if(this.grid[i][j].partOfInvalidRowColOrSquare) {
+                    // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
                         document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
                     } else { // just part of invalid group

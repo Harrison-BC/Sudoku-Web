@@ -40,7 +40,7 @@ function parseTextInput(sudokuString){
 
 
 function solveSudoku(){
-    if(currSudoku.isValidSudoku()) {
+    if(currSudoku.isValidSudoku() && currSudoku.totalClues >= 17) {
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
     }
