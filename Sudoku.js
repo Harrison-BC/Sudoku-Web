@@ -175,12 +175,11 @@ class Sudoku {
         }
     }
     
-    getSudoku(){
+    toString(){
         let sudoku = "";
         for(let i = 0; i < this.grid.length; i++) {
-            sudoku += "\n";
             for(let j = 0; j < this.grid[0].length; j++) {
-                sudoku += this.grid[i][j].getNum() + ", ";
+                sudoku += this.grid[i][j].getNum();
             }
         }
         return sudoku;
@@ -274,6 +273,7 @@ class Sudoku {
                 activeTileElement.style.backgroundColor = "dodgerblue";
             }
         }
+        document.getElementById("export").innerHTML = currSudoku.toString();
     }
 
     setActiveTile(id){

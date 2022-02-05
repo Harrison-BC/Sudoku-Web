@@ -43,6 +43,8 @@ function solveSudoku(){
     if(currSudoku.isValidSudoku() && currSudoku.totalClues >= 17) {
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
+    } else {
+        console.log("can't solve due to invalid or not enough clues")
     }
 }
 
