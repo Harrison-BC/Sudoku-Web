@@ -291,6 +291,10 @@ class Sudoku {
     }
 
     arrowKeys(key){
+        if(this.activeTile == null) {
+            this.setActiveTile(this.grid[0][0].id);
+            return;
+        }
         switch (key) {
             case "ArrowLeft":
                 this.updateHtmlNumbers();
