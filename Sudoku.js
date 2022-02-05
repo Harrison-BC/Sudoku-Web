@@ -259,9 +259,9 @@ class Sudoku {
 
                 if(this.grid[i][j].partOfInvalidRowColOrSquare) {
                     if(this.grid[i][j].responsibleForDiscrepancy){
-                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#8B0000";
-                    } else {
-                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF7F7F";
+                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
+                    } else { // just part of invalid group
+                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
                     }
                 } else {
                     document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');

@@ -69,19 +69,24 @@ class Tile {
     /**
      * Checks for duplicates in an array.
      * Used for checking if rows and columns are valid.
-     * @param array
+     * @param array the row or column to check for duplicates
      * @returns {boolean}
      */
     duplicateInArray(array){
         let duplicatesPresent = false;
-        let map = new Map();
+
+        let map = new Map();    // create a new map to then check for duplicates
+
+        // loop through array and add to the map
         for(let j = 0; j < array.length; j++) {
             if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
             else map.set(array[j].num, map.get(array[j].num) + 1);
         }
 
+        // loop map and check if there are duplicates
         for (let [key, value] of map) {
             if (key != 0 && value > 1){
+                // set responsible for discrepancy true so can be shown to user
                 if(key == this.num) this.responsibleForDiscrepancy = true;
                 duplicatesPresent = true;
             }
