@@ -35,6 +35,8 @@ function parseTextInput(sudokuString){
         return false;
     }
     currSudoku.changeNumbers(sudokuString);
+    currSudoku.setInvalidTiles();
+    currSudoku.updateHtmlNumbers();
 }
 
 

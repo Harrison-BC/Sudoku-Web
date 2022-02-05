@@ -258,6 +258,7 @@ class Sudoku {
                 }
 
                 if(this.grid[i][j].partOfInvalidRowColOrSquare) {
+
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
                         document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
