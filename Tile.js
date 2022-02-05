@@ -66,7 +66,14 @@ class Tile {
         return this.square;
     }
 
+    /**
+     * Checks for duplicates in an array.
+     * Used for checking if rows and columns are valid.
+     * @param array
+     * @returns {boolean}
+     */
     duplicateInArray(array){
+        let duplicatesPresent = false;
         let map = new Map();
         for(let j = 0; j < array.length; j++) {
             if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
@@ -76,10 +83,10 @@ class Tile {
         for (let [key, value] of map) {
             if (key != 0 && value > 1){
                 if(key == this.num) this.responsibleForDiscrepancy = true;
-                return true;
+                duplicatesPresent = true;
             }
         }
-        return false;
+        return duplicatesPresent;
     }
 
     /**
