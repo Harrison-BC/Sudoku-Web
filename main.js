@@ -8,8 +8,8 @@ function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
 
     document.addEventListener('keypress', (event) => {
-        var name = event.key;
-        var code = event.code;
+        let name = event.key;
+        let code = event.code;
         console.log(code);
         if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
         else {
