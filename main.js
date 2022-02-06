@@ -13,7 +13,9 @@ function main(sudokuString){
         console.log(code);
         if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
         else {
-            currSudoku.updateNumber(name);
+            if(code !== "Space"){
+                currSudoku.updateNumber(name);
+            }
         }
     }, false);
 

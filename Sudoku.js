@@ -289,6 +289,8 @@ class Sudoku {
             // console.log("number is now: " + this.activeTile.getNum());
             this.setInvalidTiles();
             this.updateHtmlNumbers();
+        } else {
+
         }
     }
 
