@@ -10,9 +10,10 @@ function main(sudokuString){
     document.addEventListener('keypress', (event) => {
         let name = event.key;
         let code = event.code;
-        console.log(code);
+        // console.log(code);
         if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
         else {
+            console.log(document.activeElement);
             if(code !== "Space") currSudoku.updateNumber(name);
             else currSudoku.updateNumber(0);
         }

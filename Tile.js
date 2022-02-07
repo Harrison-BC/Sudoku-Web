@@ -107,12 +107,12 @@ class Tile {
          if(!squareValid || !rowValid || !colValid) {
              this.partOfInvalidRowColOrSquare = true;
          }
-        console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
+        // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
     }
 
     squareIsValid(){
-        console.log("square check");
+        // console.log("square check");
         // if(this.rowNum == 7 && this.colNum == 8) debugger;
         // create map and add numbers to it
         let map = new Map();
@@ -149,7 +149,7 @@ class Tile {
     }
 
     rowIsValid(){
-         console.log("row check")
+         // console.log("row check")
          // sets tiles to red if the row is invalid
         if (this.duplicateInArray(this.row)){
             return false;
