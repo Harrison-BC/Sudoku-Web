@@ -84,7 +84,6 @@ class Sudoku {
 
         for(let i = 0; i < this.grid.length; i++) {
             for(let j = 0; j < this.grid[0].length; j++) {
-                if(i == 6 && j == 7) debugger;
                 this.grid[i][j].isValid();
             }
         }
