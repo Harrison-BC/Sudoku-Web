@@ -6,6 +6,7 @@ let currSudoku;
 
 function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
+    const elem = document.querySelector('#input');
 
     document.addEventListener('keypress', (event) => {
         let name = event.key;
@@ -13,18 +14,22 @@ function main(sudokuString){
         console.log(name);
 
         console.log(document.activeElement);
-        if(code === "Space") currSudoku.updateNumber(0);
-        else if(name === "a") currSudoku.arrowKeys("ArrowLeft");
-        else if(name === "w") currSudoku.arrowKeys("ArrowUp");
-        else if(name === "s") currSudoku.arrowKeys("ArrowDown");
-        else if(name === "d") currSudoku.arrowKeys("ArrowRight");
-        else currSudoku.updateNumber(name);
-
+        console.log(elem);
+        if(document.activeElement !== elem) {
+            if (code === "Space") currSudoku.updateNumber(0);
+            else if (name === "a") currSudoku.arrowKeys("ArrowLeft");
+            else if (name === "w") currSudoku.arrowKeys("ArrowUp");
+            else if (name === "s") currSudoku.arrowKeys("ArrowDown");
+            else if (name === "d") currSudoku.arrowKeys("ArrowRight");
+            else currSudoku.updateNumber(name);
+        }
     }, false);
 
     document.onkeydown = function (event) {
-        if(event.code == "Backspace") currSudoku.updateNumber(0);
-        else currSudoku.arrowKeys(event.key);
+        if(document.activeElement !== elem) {
+            if (event.code == "Backspace") currSudoku.updateNumber(0);
+            else currSudoku.arrowKeys(event.key);
+        }
     };
 }
 
