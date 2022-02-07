@@ -6,22 +6,32 @@ let currSudoku;
 
 function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
+    const elem = document.querySelector('#input');
 
     document.addEventListener('keypress', (event) => {
-        var name = event.key;
-        var code = event.code;
-        console.log(code);
-        if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
-        else currSudoku.updateNumber(name);
+        let name = event.key;
+        let code = event.code;
+        console.log(name);
+
+        console.log(document.activeElement);
+        console.log(elem);
+        if(document.activeElement !== elem) {
+            if (code === "Space") currSudoku.updateNumber(0);
+            else currSudoku.updateNumber(name);
+        }
     }, false);
 
     document.onkeydown = function (event) {
-        currSudoku.arrowKeys(event.key);
+        if(document.activeElement !== elem) {
+            if (event.code == "Backspace") currSudoku.updateNumber(0);
+            else currSudoku.arrowKeys(event.key);
+        }
     };
 }
 
 function clicked(id){
     currSudoku.setActiveTile(id);
+    currSudoku.updateHtmlNumbers();
 }
 
 function parseTextInput(sudokuString){
@@ -32,14 +42,18 @@ function parseTextInput(sudokuString){
         return false;
     }
     currSudoku.changeNumbers(sudokuString);
+    currSudoku.setInvalidTiles();
+    currSudoku.updateHtmlNumbers();
 }
 
 
 
 function solveSudoku(){
-    if(currSudoku.isValidSudoku()) {
+    if(currSudoku.isValidSudoku() && currSudoku.totalClues >= 17) {
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
+    } else {
+        console.log(currSudoku.totalClues);
     }
 }
 

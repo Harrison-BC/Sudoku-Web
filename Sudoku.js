@@ -21,8 +21,8 @@ class Sudoku {
 
             tileDiv.setAttribute("onclick", "clicked(" + i + ")");
             tileDiv.className = "tile";
-            if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "thick solid black";
-            if((j == 2 || j == 5)) tileDiv.style.borderRight = "thick solid black";
+            if((i >= 18 && i < 27) || (i >= 45 && i < 54)) tileDiv.style.borderBottom = "2px solid black";
+            if((j == 2 || j == 5)) tileDiv.style.borderRight = "2px solid black";
             tileDiv.id = i.toString();
             tileDiv.appendChild(tileID);
             element.appendChild(tileDiv);
@@ -42,7 +42,7 @@ class Sudoku {
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 // set
-                this.numberBoard[i][j] = string[(i*9)+j];
+                this.numberBoard[i][j] = parseInt(string[(i*9)+j]);
                 let idNum = (i*9)+j;
 
                 let tileDiv = document.getElementById(idNum.toString());
@@ -59,7 +59,8 @@ class Sudoku {
 
         for(let i = 0; i < this.numberBoard.length; i++){
             for(let j = 0; j < this.numberBoard[0].length; j++){
-                let currentTile = new Tile(this.numberBoard[i][j], pastTile);
+                let currentTile = new Tile(this.numberBoard[i][j], pastTile, i, j);
+                if(this.numberBoard[i][j] != 0) this.totalClues++;
                 tileBoard[i][j] = currentTile;
                 currentTile.id = (i*9)+j;
                 // set nextTile of pastTile
@@ -71,6 +72,21 @@ class Sudoku {
             }
         }
         this.setColsRowsAndSquares(tileBoard);
+    }
+
+    setInvalidTiles(){
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[0].length; j++) {
+                this.grid[i][j].partOfInvalidRowColOrSquare = false;
+                this.grid[i][j].responsibleForDiscrepancy = false;
+            }
+        }
+
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[0].length; j++) {
+                this.grid[i][j].isValid();
+            }
+        }
     }
 
     isValidSudoku(){
@@ -89,12 +105,12 @@ class Sudoku {
     }
 
     setColsRowsAndSquares(tileBoard){
-        var columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
-        var currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
+        let columns = new Array(9).fill(null).map(()=>new Array(9).fill(null));;
+        let currentSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));;
 
-        var leftSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
-        var middleSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
-        var rightSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let leftSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let middleSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
+        let rightSquare = new Array(3).fill(null).map(()=>new Array(3).fill(null));
 
         for(let row = 0; row < 9; row++){
             for (let column = 0; column < 9; column++){
@@ -159,12 +175,11 @@ class Sudoku {
         }
     }
     
-    getSudoku(){
+    toString(){
         let sudoku = "";
         for(let i = 0; i < this.grid.length; i++) {
-            sudoku += "\n";
             for(let j = 0; j < this.grid[0].length; j++) {
-                sudoku += this.grid[i][j].getNum() + ", ";
+                sudoku += this.grid[i][j].getNum();
             }
         }
         return sudoku;
@@ -227,61 +242,96 @@ class Sudoku {
         return t.getNum() + 1;
     }
 
+    /**
+     * Updates the numbers
+     */
     updateHtmlNumbers(){
         for(let i = 0; i < 9; i++){
             for(let j = 0; j < 9; j++){
                 let idNum = (i*9)+j;
                 let tileDiv = document.getElementById(idNum.toString());
-                let paragraph = tileDiv.getElementsByClassName("number");
+                let paragraph =  tileDiv.getElementsByClassName("number");
                 if(this.grid[i][j].getNum() != 0) {
                     paragraph[0].innerHTML = this.grid[i][j].getNum();
                 } else {
                     paragraph[0].innerHTML = "";
                 }
+
+                if(this.grid[i][j].partOfInvalidRowColOrSquare) {
+
+                    // if it is responsible for invalid group
+                    if(this.grid[i][j].responsibleForDiscrepancy){
+                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
+                    } else { // just part of invalid group
+                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
+                    }
+                } else {
+                    document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
+                }
+
+                // set the active tile colour
+                let activeTileElement = document.getElementById(this.activeTile.id);
+                activeTileElement.style.backgroundColor = "dodgerblue";
             }
         }
+        document.getElementById("export").innerHTML = currSudoku.toString();
     }
 
     setActiveTile(id){
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
-
-        if(this.pastTile != null) {
-            this.pastTile.style.removeProperty('background-color');
-        }
-
-        let tileElement = document.getElementById(id);
-        tileElement.style.backgroundColor = "dodgerblue";
-        let pElements = tileElement.getElementsByClassName("number");
-        this.pastTile = tileElement;
     }
 
     updateNumber(number){
         if(!isNaN(number)){
-            this.activeTile.num = number;
-            console.log("number is now: " + this.activeTile.getNum());
+            this.activeTile.setNum(parseInt(number));
+            // console.log("number is now: " + this.activeTile.getNum());
+            this.setInvalidTiles();
             this.updateHtmlNumbers();
-            if(!this.activeTile.isValid()){
-                console.log("uhoh");
-            }
         }
     }
 
     arrowKeys(key){
+        if(this.activeTile == null) {
+            this.setActiveTile(this.grid[0][0].id);
+            this.updateHtmlNumbers();
+            return;
+        }
         switch (key) {
-            case "ArrowLeft":
-                if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
+            case 'a':
+            case ("ArrowLeft"):
+                if(this.activeTile.getPastTile() != null) {
+                    this.setActiveTile(this.activeTile.getPastTile().id);
+                } else {
+                    this.setActiveTile(this.grid[8][8].id);
+                }
                 break;
-            case "ArrowUp":
-                if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
+            case 'w':
+            case ("ArrowUp"):
+                if(this.activeTile.id > 8) {
+                    this.setActiveTile(this.activeTile.id-9);
+                } else {
+                    this.setActiveTile(this.grid[8][this.activeTile.colNum].id)
+                }
                 break;
-            case "ArrowRight":
-                if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
+            case 'd':
+            case ("ArrowRight"):
+                if(this.activeTile.getNextTile() != null) {
+                    this.setActiveTile(this.activeTile.getNextTile().id);
+                } else {
+                    this.setActiveTile(this.grid[0][0].id);
+                }
                 break;
-            case "ArrowDown":
-                if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
+            case 's':
+            case ("ArrowDown"):
+                if(this.activeTile.id < 72) {
+                    this.setActiveTile(this.activeTile.id+9);
+                } else {
+                    this.setActiveTile(this.grid[0][this.activeTile.colNum].id)
+                }
                 break;
         }
+        this.updateHtmlNumbers();
     }
 }

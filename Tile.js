@@ -6,10 +6,14 @@ class Tile {
     isKnown = false;
     pastTile;
     nextTile;
+    partOfInvalidRowColOrSquare = false;
+    responsibleForDiscrepancy = false;
 
-    constructor(num, pastTile) {
+    constructor(num, pastTile, rowNum, colNum) {
         this.num = num;
         this.pastTile = pastTile;
+        this.rowNum = rowNum;
+        this.colNum = colNum;
     };
 
     getIsKnown(){
@@ -65,32 +69,124 @@ class Tile {
     }
 
     /**
+     * Checks for duplicates in an array.
+     * Used for checking if rows and columns are valid.
+     * @param array the row or column to check for duplicates
+     * @returns {boolean}
+     */
+    duplicateInArray(array){
+        let duplicatesPresent = false;
+
+        let map = new Map();    // create a new map to then check for duplicates
+
+        // loop through array and add to the map
+        for(let j = 0; j < array.length; j++) {
+            if(isNaN(map.get(array[j].num))) map.set(array[j].num, 1);
+            else map.set(array[j].num, map.get(array[j].num) + 1);
+        }
+
+        // loop map and check if there are duplicates
+        for (let [key, value] of map) {
+            if (key != 0 && value > 1){
+                // set responsible for discrepancy true so can be shown to user
+                if(key == this.num) this.responsibleForDiscrepancy = true;
+                duplicatesPresent = true;
+            }
+        }
+        return duplicatesPresent;
+    }
+
+    /**
      * Checks if a Tile is valid.
      * @return
      */
      isValid(){
+         let squareValid = this.squareIsValid();
+         let rowValid = this.rowIsValid();
+         let colValid = this.colIsValid();
+         if(!squareValid || !rowValid || !colValid) {
+             this.partOfInvalidRowColOrSquare = true;
+         }
+        // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
+         return (squareValid && rowValid && colValid);
+    }
+
+    squareIsValid(){
+        // console.log("square check");
+        // if(this.rowNum == 7 && this.colNum == 8) debugger;
+        // create map and add numbers to it
+        let map = new Map();
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[0].length; j++) {
-                if (this.square[i][j] !== this && this.square[i][j].num == this.num && this.square[i][j].num != 0) return false;
+                if(this.square[i][j].num != 0) {
+                    if(isNaN(map.get(this.square[i][j].num))) map.set(this.square[i][j].num, 1);
+                    else map.set(this.square[i][j].num, map.get(this.square[i][j].num) + 1);
+                }
             }
         }
 
-        // check if contains more than 1 of same number
-        for(let i = 0; i < this.row.length; i++) {
-            if (this.row[i] !== this && this.row[i].num == this.num && this.row[i].num != 0){
-                return false;
-            }
-        }
-
-        for(let i = 0; i < this.row.length; i++) {
-            if (this.column[i] !== this && this.column[i].num == this.num && this.column[i].num != 0){
+        // loop through map and check for duplicates
+        for (let [key, value] of map) {
+            if (value > 1){
+                if(key == this.num) this.responsibleForDiscrepancy = true;
                 return false;
             }
         }
 
         return true;
-
     }
+
+    setSquareDiscrepancy(discrepancy){
+        for(let k = 0; k < this.square.length; k++) {
+            for(let l = 0; l < this.square[0].length; l++) {
+                if(discrepancy){
+                    this.square[k][l].partOfDiscrepancy = discrepancy;
+                } else if(!this.square[k][l].rowIsValid() || !this.square[k][l].colIsValid()){
+                    this.square[k][l].partOfDiscrepancy = false;
+                }
+            }
+        }
+    }
+
+    rowIsValid(){
+         // console.log("row check")
+         // sets tiles to red if the row is invalid
+        if (this.duplicateInArray(this.row)){
+            return false;
+        }
+
+        return true;
+    }
+
+    setRowDiscrepancy(discrepancy){
+        for(let i = 0; i < this.row.length; i++) {
+            if(discrepancy){
+                this.row[i].partOfDiscrepancy = discrepancy;
+            } else if(!this.row[i].squareIsValid() || !this.row[i].colIsValid()){
+                this.row[i].partOfDiscrepancy = discrepancy;
+            }
+        }
+    }
+
+    colIsValid(){
+        // sets tiles to red if the row is invalid
+        if (this.duplicateInArray(this.column)){
+            return false;
+        }
+
+        return true;
+    }
+
+    setColDiscrepancy(discrepancy){
+        for(let i = 0; i < this.column.length; i++) {
+            if(discrepancy){
+                this.column[i].partOfDiscrepancy = discrepancy;
+            } else if(!this.column[i].squareIsValid() || !this.column[i].colIsValid()){
+                this.column[i].partOfDiscrepancy = discrepancy;
+            }
+        }
+    }
+
 
     /**
      * Gets the closest past Tile that has an unknown number.
