@@ -11,16 +11,16 @@ function main(sudokuString){
         let name = event.key;
         let code = event.code;
         // console.log(code);
-        if(code >= 37 && code <= 40) currSudoku.arrowKeys(code);
-        else {
-            console.log(document.activeElement);
-            if(code !== "Space") currSudoku.updateNumber(name);
-            else currSudoku.updateNumber(0);
-        }
+
+        console.log(document.activeElement);
+        if(code == "Space") currSudoku.updateNumber(0);
+        else currSudoku.updateNumber(name);
+
     }, false);
 
     document.onkeydown = function (event) {
-        currSudoku.arrowKeys(event.key);
+        if(event.code == "Backspace") currSudoku.updateNumber(0);
+        else currSudoku.arrowKeys(event.key);
     };
 }
 
