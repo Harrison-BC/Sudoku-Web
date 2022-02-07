@@ -9,9 +9,11 @@ class Tile {
     partOfInvalidRowColOrSquare = false;
     responsibleForDiscrepancy = false;
 
-    constructor(num, pastTile) {
+    constructor(num, pastTile, rowNum, colNum) {
         this.num = num;
         this.pastTile = pastTile;
+        this.rowNum = rowNum;
+        this.colNum = colNum;
     };
 
     getIsKnown(){
@@ -102,11 +104,16 @@ class Tile {
          let squareValid = this.squareIsValid();
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
-         if(!squareValid || !rowValid || !colValid) this.partOfInvalidRowColOrSquare = true;
+         if(!squareValid || !rowValid || !colValid) {
+             this.partOfInvalidRowColOrSquare = true;
+         }
+        console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
     }
 
     squareIsValid(){
+        console.log("square check");
+        // if(this.rowNum == 7 && this.colNum == 8) debugger;
         // create map and add numbers to it
         let map = new Map();
         for(let i = 0; i < this.square.length; i++) {

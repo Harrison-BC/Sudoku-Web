@@ -59,7 +59,7 @@ class Sudoku {
 
         for(let i = 0; i < this.numberBoard.length; i++){
             for(let j = 0; j < this.numberBoard[0].length; j++){
-                let currentTile = new Tile(this.numberBoard[i][j], pastTile);
+                let currentTile = new Tile(this.numberBoard[i][j], pastTile, i+1, j+1);
                 if(this.numberBoard[i][j] != 0) this.totalClues++;
                 tileBoard[i][j] = currentTile;
                 currentTile.id = (i*9)+j;
@@ -84,6 +84,7 @@ class Sudoku {
 
         for(let i = 0; i < this.grid.length; i++) {
             for(let j = 0; j < this.grid[0].length; j++) {
+                if(i == 6 && j == 7) debugger;
                 this.grid[i][j].isValid();
             }
         }
@@ -284,8 +285,9 @@ class Sudoku {
     }
 
     updateNumber(number){
+        // debugger;
         if(!isNaN(number)){
-            this.activeTile.setNum(number);
+            this.activeTile.setNum(parseInt(number));
             // console.log("number is now: " + this.activeTile.getNum());
             this.setInvalidTiles();
             this.updateHtmlNumbers();
