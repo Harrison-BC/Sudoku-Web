@@ -10,10 +10,14 @@ function main(sudokuString){
     document.addEventListener('keypress', (event) => {
         let name = event.key;
         let code = event.code;
-        // console.log(code);
+        console.log(name);
 
         console.log(document.activeElement);
-        if(code == "Space") currSudoku.updateNumber(0);
+        if(code === "Space") currSudoku.updateNumber(0);
+        else if(name === "a") currSudoku.arrowKeys("ArrowLeft");
+        else if(name === "w") currSudoku.arrowKeys("ArrowUp");
+        else if(name === "s") currSudoku.arrowKeys("ArrowDown");
+        else if(name === "d") currSudoku.arrowKeys("ArrowRight");
         else currSudoku.updateNumber(name);
 
     }, false);
