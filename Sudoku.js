@@ -59,7 +59,7 @@ class Sudoku {
 
         for(let i = 0; i < this.numberBoard.length; i++){
             for(let j = 0; j < this.numberBoard[0].length; j++){
-                let currentTile = new Tile(this.numberBoard[i][j], pastTile, i+1, j+1);
+                let currentTile = new Tile(this.numberBoard[i][j], pastTile, i, j);
                 if(this.numberBoard[i][j] != 0) this.totalClues++;
                 tileBoard[i][j] = currentTile;
                 currentTile.id = (i*9)+j;
@@ -301,25 +301,37 @@ class Sudoku {
         switch (key) {
             case 'a':
             case ("ArrowLeft"):
-                if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
-                this.updateHtmlNumbers();
+                if(this.activeTile.getPastTile() != null) {
+                    this.setActiveTile(this.activeTile.getPastTile().id);
+                } else {
+                    this.setActiveTile(this.grid[8][8].id);
+                }
                 break;
             case 'w':
             case ("ArrowUp"):
-                if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
-                this.updateHtmlNumbers();
+                if(this.activeTile.id > 8) {
+                    this.setActiveTile(this.activeTile.id-9);
+                } else {
+                    this.setActiveTile(this.grid[8][this.activeTile.colNum].id)
+                }
                 break;
             case 'd':
             case ("ArrowRight"):
-                if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
-                this.updateHtmlNumbers();
+                if(this.activeTile.getNextTile() != null) {
+                    this.setActiveTile(this.activeTile.getNextTile().id);
+                } else {
+                    this.setActiveTile(this.grid[0][0].id);
+                }
                 break;
             case 's':
             case ("ArrowDown"):
-
-                if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
-                this.updateHtmlNumbers();
+                if(this.activeTile.id < 72) {
+                    this.setActiveTile(this.activeTile.id+9);
+                } else {
+                    this.setActiveTile(this.grid[0][this.activeTile.colNum].id)
+                }
                 break;
         }
+        this.updateHtmlNumbers();
     }
 }
