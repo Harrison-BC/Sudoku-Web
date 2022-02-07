@@ -284,36 +284,38 @@ class Sudoku {
     }
 
     updateNumber(number){
-        // debugger;
         if(!isNaN(number)){
             this.activeTile.setNum(parseInt(number));
             // console.log("number is now: " + this.activeTile.getNum());
             this.setInvalidTiles();
             this.updateHtmlNumbers();
-        } else {
-
         }
     }
 
     arrowKeys(key){
         if(this.activeTile == null) {
             this.setActiveTile(this.grid[0][0].id);
+            this.updateHtmlNumbers();
             return;
         }
         switch (key) {
-            case "ArrowLeft":
+            case 'a':
+            case ("ArrowLeft"):
                 if(this.activeTile.getPastTile() != null) this.setActiveTile(this.activeTile.getPastTile().id);
                 this.updateHtmlNumbers();
                 break;
-            case "ArrowUp":
+            case 'w':
+            case ("ArrowUp"):
                 if(this.activeTile.id > 8) this.setActiveTile(this.activeTile.id-9);
                 this.updateHtmlNumbers();
                 break;
-            case "ArrowRight":
+            case 'd':
+            case ("ArrowRight"):
                 if(this.activeTile.getNextTile() != null) this.setActiveTile(this.activeTile.getNextTile().id);
                 this.updateHtmlNumbers();
                 break;
-            case "ArrowDown":
+            case 's':
+            case ("ArrowDown"):
 
                 if(this.activeTile.id < 72) this.setActiveTile(this.activeTile.id+9);
                 this.updateHtmlNumbers();

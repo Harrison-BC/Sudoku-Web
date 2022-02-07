@@ -17,10 +17,6 @@ function main(sudokuString){
         console.log(elem);
         if(document.activeElement !== elem) {
             if (code === "Space") currSudoku.updateNumber(0);
-            else if (name === "a") currSudoku.arrowKeys("ArrowLeft");
-            else if (name === "w") currSudoku.arrowKeys("ArrowUp");
-            else if (name === "s") currSudoku.arrowKeys("ArrowDown");
-            else if (name === "d") currSudoku.arrowKeys("ArrowRight");
             else currSudoku.updateNumber(name);
         }
     }, false);
