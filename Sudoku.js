@@ -225,20 +225,6 @@ class Sudoku {
         }
     }
 
-     hasWon(){
-        for(let i = 0; i < this.grid.length; i++) {
-            for(let j = 0; j < this.grid[0].length; j++) {
-                if(this.grid[i][j].getNum() === 0) return false;
-            }
-        }
-
-        return true;
-    }
-
-     getRootTile() {
-        return this.rootTile;
-    }
-
      nextLowestPossible(t) {
         return t.getNum() + 1;
     }
@@ -262,17 +248,14 @@ class Sudoku {
 
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
-                        // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
                         $('#' + this.grid[i][j].id).addClass('redText');
                     } else {
-                        // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                         $('#' + this.grid[i][j].id).removeClass('redText');
                     }
                     $('#' + this.grid[i][j].id).addClass('redColour');
                 } else {
                     $('#' + this.grid[i][j].id).removeClass('redColour');
                     $('#' + this.grid[i][j].id).removeClass('redText');
-                    // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                 }
             }
         }
