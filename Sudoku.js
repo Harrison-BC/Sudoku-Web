@@ -262,6 +262,7 @@ class Sudoku {
 
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
+                        // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
                         document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
                     } else { // just part of invalid group
                         document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";

@@ -110,6 +110,7 @@ class Tile {
     }
 
     squareIsValid(){
+         let valid = true;
         // console.log("square check");
         // if(this.rowNum == 7 && this.colNum == 8) debugger;
         // create map and add numbers to it
@@ -127,11 +128,11 @@ class Tile {
         for (let [key, value] of map) {
             if (value > 1){
                 if(key == this.num) this.responsibleForDiscrepancy = true;
-                return false;
+                valid = false;
             }
         }
 
-        return true;
+        return valid;
     }
 
     setSquareDiscrepancy(discrepancy){
