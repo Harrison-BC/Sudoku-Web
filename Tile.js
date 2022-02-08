@@ -104,9 +104,7 @@ class Tile {
          let squareValid = this.squareIsValid();
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
-         if(!squareValid || !rowValid || !colValid) {
-             this.partOfInvalidRowColOrSquare = true;
-         }
+         this.partOfInvalidRowColOrSquare = !squareValid || !rowValid || !colValid;
         // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
     }

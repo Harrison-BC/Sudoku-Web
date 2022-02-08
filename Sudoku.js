@@ -210,6 +210,7 @@ class Sudoku {
                         this.rootTile = this.rootTile.getNextUnknownTile();
 
                         if (this.rootTile === null) {
+                            this.won();
                             console.log("you won");
                             console.log(this);
                             return;
