@@ -267,17 +267,19 @@ class Sudoku {
             this.activeTile = this.grid[0][0];
         }
         $('#' + this.activeTile.id).removeClass('activeTile');
+        this.activeTile.setActiveGroups(false);
 
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
         // set the active tile colour
 
-
+        // TODO: Change this to JQuery??
         let activeTileElement = document.getElementById(this.activeTile.id);
         activeTileElement.classList.add('activeTile');
         console.log(this.activeTile.id);
         // activeTileElement.style.backgroundColor = "dodgerblue";
+        this.activeTile.setActiveGroups(true);
     }
 
     updateNumber(number){

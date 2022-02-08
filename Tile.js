@@ -186,4 +186,22 @@ class Tile {
 
     setKnown(known) {this.isKnown = known;}
 
+    setActiveGroups(add){
+        for(let i = 0; i < this.row.length; i++){
+            if(add) $('#' + this.row[i].id).addClass('selectedGroup');
+            else if (!add) $('#' + this.row[i].id).removeClass('selectedGroup');
+        }
+
+        for(let i = 0; i < this.column.length; i++){
+            if(add) $('#' + this.column[i].id).addClass('selectedGroup');
+            else if (!add) $('#' + this.column[i].id).removeClass('selectedGroup');
+        }
+
+        for(let i = 0; i < this.square.length; i++) {
+            for(let j = 0; j < this.square[i].length; j++) {
+                if(add) $('#' + this.square[i][j].id).addClass('selectedGroup');
+                else if (!add) $('#' + this.square[i][j].id).removeClass('selectedGroup');
+            }
+        }
+    }
 }
