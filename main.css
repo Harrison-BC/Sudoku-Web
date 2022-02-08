@@ -18,6 +18,8 @@ p.number {
 
 .tile:hover {
     background-color: lightskyblue;
+
+    /*opacity: 0.1;*/
 }
 
 body {
@@ -36,3 +38,14 @@ body {
     border: 2px solid black;
 }
 
+.redColour {
+    background-color: #FF8F85;
+}
+
+.redColour:hover {
+    background-color: #FF7569;
+}
+
+.activeTile {
+    background-color: dodgerblue !important;
+}

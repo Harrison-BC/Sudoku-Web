@@ -266,25 +266,36 @@ class Sudoku {
                     } else {
                         document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                     }
-                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
+                    $('#' + this.grid[i][j].id).addClass('redColour');
+                    $('#' + this.grid[i][j].id).addClass('hoverRed');
+                    // document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
                 } else {
-                    document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
+                    // document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
+                    $('#' + this.grid[i][j].id).removeClass('redColour');
+                    $('#' + this.grid[i][j].id).removeClass('hoverRed');
                     document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                 }
-
-                // set the active tile colour
-                if(this.activeTile == null) this.activeTile = this.grid[0][0];
-                let activeTileElement = document.getElementById(this.activeTile.id);
-                activeTileElement.style.backgroundColor = "dodgerblue";
             }
         }
         document.getElementById("export").innerHTML = currSudoku.toString();
     }
 
     setActiveTile(id){
+        if(this.activeTile == null) {
+            this.activeTile = this.grid[0][0];
+        }
+        $('#' + this.activeTile.id).removeClass('activeTile');
+
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
+        // set the active tile colour
+
+
+        let activeTileElement = document.getElementById(this.activeTile.id);
+        activeTileElement.classList.add('activeTile');
+        console.log(this.activeTile.id);
+        // activeTileElement.style.backgroundColor = "dodgerblue";
     }
 
     updateNumber(number){
