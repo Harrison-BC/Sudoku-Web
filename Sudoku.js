@@ -210,6 +210,7 @@ class Sudoku {
                         this.rootTile = this.rootTile.getNextUnknownTile();
 
                         if (this.rootTile === null) {
+                            // this.won();
                             console.log("you won");
                             console.log(this);
                             return;
@@ -261,15 +262,18 @@ class Sudoku {
 
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
-                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF331F";
-                    } else { // just part of invalid group
-                        document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
+                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
+                    } else {
+                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                     }
+                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
                 } else {
                     document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
+                    document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                 }
 
                 // set the active tile colour
+                if(this.activeTile == null) this.activeTile = this.grid[0][0];
                 let activeTileElement = document.getElementById(this.activeTile.id);
                 activeTileElement.style.backgroundColor = "dodgerblue";
             }

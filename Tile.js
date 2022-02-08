@@ -104,14 +104,13 @@ class Tile {
          let squareValid = this.squareIsValid();
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
-         if(!squareValid || !rowValid || !colValid) {
-             this.partOfInvalidRowColOrSquare = true;
-         }
+         this.partOfInvalidRowColOrSquare = !squareValid || !rowValid || !colValid;
         // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
     }
 
     squareIsValid(){
+         let valid = true;
         // console.log("square check");
         // if(this.rowNum == 7 && this.colNum == 8) debugger;
         // create map and add numbers to it
@@ -129,11 +128,11 @@ class Tile {
         for (let [key, value] of map) {
             if (value > 1){
                 if(key == this.num) this.responsibleForDiscrepancy = true;
-                return false;
+                valid = false;
             }
         }
 
-        return true;
+        return valid;
     }
 
     setSquareDiscrepancy(discrepancy){
@@ -212,7 +211,7 @@ class Tile {
      getNextUnknownTile(){
         let nextUnknownTile = this.getNextTile();
         if(nextUnknownTile == null) return null;
-        console.log("next tile: " + nextUnknownTile.getIsKnown());
+        // console.log("next tile: " + nextUnknownTile.getIsKnown());
         while(nextUnknownTile.getIsKnown()){
             nextUnknownTile = nextUnknownTile.getNextTile();
         }

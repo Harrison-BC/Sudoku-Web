@@ -11,10 +11,10 @@ function main(sudokuString){
     document.addEventListener('keypress', (event) => {
         let name = event.key;
         let code = event.code;
-        console.log(name);
+        // console.log(name);
 
-        console.log(document.activeElement);
-        console.log(elem);
+        // console.log(document.activeElement);
+        // console.log(elem);
         if(document.activeElement !== elem) {
             if (code === "Space") currSudoku.updateNumber(0);
             else currSudoku.updateNumber(name);
@@ -27,6 +27,18 @@ function main(sudokuString){
             else currSudoku.arrowKeys(event.key);
         }
     };
+}
+
+
+
+function copyToClipboard(){
+
+    /* Copy the text inside the text field */
+    let $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($("#export").text()).select();
+    document.execCommand("copy");
+    $temp.remove();
 }
 
 function clicked(id){
