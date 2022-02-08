@@ -262,14 +262,17 @@ class Sudoku {
 
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
-                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
+                        // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
+                        $('#' + this.grid[i][j].id).addClass('redText');
                     } else {
-                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
+                        // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
+                        $('#' + this.grid[i][j].id).removeClass('redText');
                     }
                     $('#' + this.grid[i][j].id).addClass('redColour');
                 } else {
                     $('#' + this.grid[i][j].id).removeClass('redColour');
-                    document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
+                    $('#' + this.grid[i][j].id).removeClass('redText');
+                    // document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                 }
             }
         }
