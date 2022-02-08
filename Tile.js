@@ -7,6 +7,7 @@ class Tile {
     pastTile;
     nextTile;
     partOfInvalidRowColOrSquare = false;
+    partOfValidRowColOrSquare = true;
     responsibleForDiscrepancy = false;
 
     constructor(num, pastTile, rowNum, colNum) {
@@ -105,6 +106,10 @@ class Tile {
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
          this.partOfInvalidRowColOrSquare = !squareValid || !rowValid || !colValid;
+
+         if(squareValid || rowValid || colValid){
+             this.partOfValidRowColOrSquare = true;
+         }
         // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
     }
@@ -186,21 +191,61 @@ class Tile {
 
     setKnown(known) {this.isKnown = known;}
 
+    /**
+     *
+     * @param add (boolean) whether to add or remove the selectedGroup attribute
+     */
     setActiveGroups(add){
         for(let i = 0; i < this.row.length; i++){
-            if(add) $('#' + this.row[i].id).addClass('selectedGroup');
-            else if (!add) $('#' + this.row[i].id).removeClass('selectedGroup');
+            if(add) {
+                if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                    $('#' + this.row[i].id).addClass('validAndInvalid');
+                } else if (this.partOfInvalidRowColOrSquare){
+                    $('#' + this.row[i].id).addClass('redColour');
+                } else {
+                    $('#' + this.row[i].id).addClass('selectedGroup');
+                }
+            }
+            else if (!add) {
+                $('#' + this.row[i].id).removeClass('validAndInvalid');
+                $('#' + this.row[i].id).removeClass('redColour');
+                $('#' + this.row[i].id).removeClass('selectedGroup');
+            }
         }
 
         for(let i = 0; i < this.column.length; i++){
-            if(add) $('#' + this.column[i].id).addClass('selectedGroup');
-            else if (!add) $('#' + this.column[i].id).removeClass('selectedGroup');
+            if(add) {
+                if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                    $('#' + this.column[i].id).addClass('validAndInvalid');
+                } else if (this.partOfInvalidRowColOrSquare){
+                    $('#' + this.column[i].id).addClass('redColour');
+                } else {
+                    $('#' + this.column[i].id).addClass('selectedGroup');
+                }
+            }
+            else if (!add) {
+                $('#' + this.column[i].id).removeClass('validAndInvalid');
+                $('#' + this.column[i].id).removeClass('redColour');
+                $('#' + this.column[i].id).removeClass('selectedGroup');
+            }
         }
 
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[i].length; j++) {
-                if(add) $('#' + this.square[i][j].id).addClass('selectedGroup');
-                else if (!add) $('#' + this.square[i][j].id).removeClass('selectedGroup');
+                if(add) {
+                    if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                        $('#' + this.square[i][j].id).addClass('validAndInvalid');
+                    } else if (this.partOfInvalidRowColOrSquare){
+                        $('#' + this.square[i][j].id).addClass('redColour');
+                    } else {
+                        $('#' + this.square[i][j].id).addClass('selectedGroup');
+                    }
+                }
+                else if (!add) {
+                    $('#' + this.square[i][j].id).removeClass('validAndInvalid');
+                    $('#' + this.square[i][j].id).removeClass('redColour');
+                    $('#' + this.square[i][j].id).removeClass('selectedGroup');
+                }
             }
         }
     }

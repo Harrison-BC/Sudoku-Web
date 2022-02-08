@@ -46,6 +46,7 @@ body {
     background-color: #FF7569;
 }
 
+/*TODO: Change to black and then have text as white when active?*/
 .activeTile {
     background-color: dodgerblue !important;
 }
