@@ -270,6 +270,7 @@ class Sudoku {
                 }
 
                 // set the active tile colour
+                if(this.activeTile == null) this.activeTile = this.grid[0][0];
                 let activeTileElement = document.getElementById(this.activeTile.id);
                 activeTileElement.style.backgroundColor = "dodgerblue";
             }
