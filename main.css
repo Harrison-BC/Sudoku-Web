@@ -53,3 +53,11 @@ body {
 .redText {
     color: #FF331F;
 }
+
+.selectedGroup {
+    background-color: #5fafff;
+}
+
+.validAndInvalid {
+    background-color: #afa0c2;
+}
