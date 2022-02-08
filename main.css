@@ -49,3 +49,7 @@ body {
 .activeTile {
     background-color: dodgerblue !important;
 }
+
+.redText {
+    color: #FF331F;
+}

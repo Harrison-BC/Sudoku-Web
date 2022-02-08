@@ -267,12 +267,8 @@ class Sudoku {
                         document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                     }
                     $('#' + this.grid[i][j].id).addClass('redColour');
-                    $('#' + this.grid[i][j].id).addClass('hoverRed');
-                    // document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
                 } else {
-                    // document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
                     $('#' + this.grid[i][j].id).removeClass('redColour');
-                    $('#' + this.grid[i][j].id).removeClass('hoverRed');
                     document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
                 }
             }
