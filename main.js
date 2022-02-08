@@ -29,6 +29,18 @@ function main(sudokuString){
     };
 }
 
+
+
+function copyToClipboard(){
+
+    /* Copy the text inside the text field */
+    let $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($("#export").text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+
 function clicked(id){
     currSudoku.setActiveTile(id);
     currSudoku.updateHtmlNumbers();

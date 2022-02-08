@@ -12,6 +12,10 @@ p.number {
     font-size: 25px;
 }
 
+#export {
+    display: none;
+}
+
 .tile:hover {
     background-color: lightskyblue;
 }

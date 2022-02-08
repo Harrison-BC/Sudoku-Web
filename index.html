@@ -5,6 +5,7 @@
         <script src="main.js" async=""></script>
         <script src="Sudoku.js" async=""></script>
         <script src="Tile.js" async=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
 
     <label>
@@ -16,6 +17,7 @@
         <div id = "sudoku"></div>
         <button id ="but" onclick="solveSudoku()">Solve</button>
         <p id="export"></p>
+        <button onclick="copyToClipboard()">Copy Sudoku</button>
     </body>
 
 </html>
