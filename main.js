@@ -11,10 +11,10 @@ function main(sudokuString){
     document.addEventListener('keypress', (event) => {
         let name = event.key;
         let code = event.code;
-        console.log(name);
+        // console.log(name);
 
-        console.log(document.activeElement);
-        console.log(elem);
+        // console.log(document.activeElement);
+        // console.log(elem);
         if(document.activeElement !== elem) {
             if (code === "Space") currSudoku.updateNumber(0);
             else currSudoku.updateNumber(name);
