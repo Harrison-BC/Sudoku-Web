@@ -211,7 +211,7 @@ class Tile {
      getNextUnknownTile(){
         let nextUnknownTile = this.getNextTile();
         if(nextUnknownTile == null) return null;
-        console.log("next tile: " + nextUnknownTile.getIsKnown());
+        // console.log("next tile: " + nextUnknownTile.getIsKnown());
         while(nextUnknownTile.getIsKnown()){
             nextUnknownTile = nextUnknownTile.getNextTile();
         }
