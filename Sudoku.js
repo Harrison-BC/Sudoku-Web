@@ -225,20 +225,6 @@ class Sudoku {
         }
     }
 
-     hasWon(){
-        for(let i = 0; i < this.grid.length; i++) {
-            for(let j = 0; j < this.grid[0].length; j++) {
-                if(this.grid[i][j].getNum() === 0) return false;
-            }
-        }
-
-        return true;
-    }
-
-     getRootTile() {
-        return this.rootTile;
-    }
-
      nextLowestPossible(t) {
         return t.getNum() + 1;
     }
@@ -262,29 +248,36 @@ class Sudoku {
 
                     // if it is responsible for invalid group
                     if(this.grid[i][j].responsibleForDiscrepancy){
-                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#FF331F";
+                        $('#' + this.grid[i][j].id).addClass('redText');
                     } else {
-                        document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
+                        $('#' + this.grid[i][j].id).removeClass('redText');
                     }
-                    document.getElementById(this.grid[i][j].id).style.backgroundColor = "#FF8F85";
+                    $('#' + this.grid[i][j].id).addClass('redColour');
                 } else {
-                    document.getElementById(this.grid[i][j].id).style.removeProperty('background-color');
-                    document.getElementById(this.grid[i][j].id).getElementsByClassName("number")[0].style.color = "#000000";
+                    $('#' + this.grid[i][j].id).removeClass('redColour');
+                    $('#' + this.grid[i][j].id).removeClass('redText');
                 }
-
-                // set the active tile colour
-                if(this.activeTile == null) this.activeTile = this.grid[0][0];
-                let activeTileElement = document.getElementById(this.activeTile.id);
-                activeTileElement.style.backgroundColor = "dodgerblue";
             }
         }
         document.getElementById("export").innerHTML = currSudoku.toString();
     }
 
     setActiveTile(id){
+        if(this.activeTile == null) {
+            this.activeTile = this.grid[0][0];
+        }
+        $('#' + this.activeTile.id).removeClass('activeTile');
+
         let col = id % 9;
         let row = ((id -col) / 9);
         this.activeTile = this.grid[row][col];
+        // set the active tile colour
+
+
+        let activeTileElement = document.getElementById(this.activeTile.id);
+        activeTileElement.classList.add('activeTile');
+        console.log(this.activeTile.id);
+        // activeTileElement.style.backgroundColor = "dodgerblue";
     }
 
     updateNumber(number){

@@ -111,8 +111,6 @@ class Tile {
 
     squareIsValid(){
          let valid = true;
-        // console.log("square check");
-        // if(this.rowNum == 7 && this.colNum == 8) debugger;
         // create map and add numbers to it
         let map = new Map();
         for(let i = 0; i < this.square.length; i++) {
@@ -135,18 +133,6 @@ class Tile {
         return valid;
     }
 
-    setSquareDiscrepancy(discrepancy){
-        for(let k = 0; k < this.square.length; k++) {
-            for(let l = 0; l < this.square[0].length; l++) {
-                if(discrepancy){
-                    this.square[k][l].partOfDiscrepancy = discrepancy;
-                } else if(!this.square[k][l].rowIsValid() || !this.square[k][l].colIsValid()){
-                    this.square[k][l].partOfDiscrepancy = false;
-                }
-            }
-        }
-    }
-
     rowIsValid(){
          // console.log("row check")
          // sets tiles to red if the row is invalid
@@ -157,16 +143,6 @@ class Tile {
         return true;
     }
 
-    setRowDiscrepancy(discrepancy){
-        for(let i = 0; i < this.row.length; i++) {
-            if(discrepancy){
-                this.row[i].partOfDiscrepancy = discrepancy;
-            } else if(!this.row[i].squareIsValid() || !this.row[i].colIsValid()){
-                this.row[i].partOfDiscrepancy = discrepancy;
-            }
-        }
-    }
-
     colIsValid(){
         // sets tiles to red if the row is invalid
         if (this.duplicateInArray(this.column)){
@@ -174,16 +150,6 @@ class Tile {
         }
 
         return true;
-    }
-
-    setColDiscrepancy(discrepancy){
-        for(let i = 0; i < this.column.length; i++) {
-            if(discrepancy){
-                this.column[i].partOfDiscrepancy = discrepancy;
-            } else if(!this.column[i].squareIsValid() || !this.column[i].colIsValid()){
-                this.column[i].partOfDiscrepancy = discrepancy;
-            }
-        }
     }
 
 
