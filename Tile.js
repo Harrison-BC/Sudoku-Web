@@ -198,9 +198,9 @@ class Tile {
     setActiveGroups(add){
         for(let i = 0; i < this.row.length; i++){
             if(add) {
-                if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                if(this.row[i].partOfInvalidRowColOrSquare && this.row[i].partOfValidRowColOrSquare){
                     $('#' + this.row[i].id).addClass('validAndInvalid');
-                } else if (this.partOfInvalidRowColOrSquare){
+                } else if (this.row[i].partOfInvalidRowColOrSquare){
                     $('#' + this.row[i].id).addClass('redColour');
                 } else {
                     $('#' + this.row[i].id).addClass('selectedGroup');
@@ -215,9 +215,9 @@ class Tile {
 
         for(let i = 0; i < this.column.length; i++){
             if(add) {
-                if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                if(this.column[i].partOfInvalidRowColOrSquare && this.column[i].partOfValidRowColOrSquare){
                     $('#' + this.column[i].id).addClass('validAndInvalid');
-                } else if (this.partOfInvalidRowColOrSquare){
+                } else if (this.column[i].partOfInvalidRowColOrSquare){
                     $('#' + this.column[i].id).addClass('redColour');
                 } else {
                     $('#' + this.column[i].id).addClass('selectedGroup');
@@ -233,9 +233,9 @@ class Tile {
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[i].length; j++) {
                 if(add) {
-                    if(this.partOfInvalidRowColOrSquare && this.partOfValidRowColOrSquare){
+                    if(this.square[i][j].partOfInvalidRowColOrSquare && this.square[i][j].partOfValidRowColOrSquare){
                         $('#' + this.square[i][j].id).addClass('validAndInvalid');
-                    } else if (this.partOfInvalidRowColOrSquare){
+                    } else if (this.square[i][j].partOfInvalidRowColOrSquare){
                         $('#' + this.square[i][j].id).addClass('redColour');
                     } else {
                         $('#' + this.square[i][j].id).addClass('selectedGroup');

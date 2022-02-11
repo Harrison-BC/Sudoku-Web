@@ -252,9 +252,9 @@ class Sudoku {
                     } else {
                         $('#' + this.grid[i][j].id).removeClass('redText');
                     }
-                    $('#' + this.grid[i][j].id).addClass('redColour');
+                    // $('#' + this.grid[i][j].id).addClass('redColour');
                 } else {
-                    $('#' + this.grid[i][j].id).removeClass('redColour');
+                    // $('#' + this.grid[i][j].id).removeClass('redColour');
                     $('#' + this.grid[i][j].id).removeClass('redText');
                 }
             }

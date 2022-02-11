@@ -46,6 +46,14 @@ body {
     background-color: #FF7569;
 }
 
+.selectedGroup {
+    background-color: #5fafff;
+}
+
+.validAndInvalid {
+    background-color: #afa0c2;
+}
+
 /*TODO: Change to black and then have text as white when active?*/
 .activeTile {
     background-color: dodgerblue !important;
@@ -53,12 +61,4 @@ body {
 
 .redText {
     color: #FF331F;
-}
-
-.selectedGroup {
-    background-color: #5fafff;
-}
-
-.validAndInvalid {
-    background-color: #afa0c2;
 }
