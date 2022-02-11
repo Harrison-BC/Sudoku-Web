@@ -234,7 +234,7 @@ class Tile {
             for(let j = 0; j < this.square[i].length; j++) {
                 if(add) {
                     //TODO: fix the two added if statements
-                    if(this.square[i][j].partOfInvalidRowColOrSquare && this.square[i][j].partOfValidRowColOrSquare && !this.row.includes(this.square[i][j]) && !this.column.includes(this.square[i][j])){
+                    if(this.square[i][j].partOfInvalidRowColOrSquare && this.square[i][j].partOfValidRowColOrSquare && this.square[i][j].contains(this.row) && this.square[i][j].contains(this.column)){
                         $('#' + this.square[i][j].id).addClass('validAndInvalid');
                     } else if (this.square[i][j].partOfInvalidRowColOrSquare){
                         $('#' + this.square[i][j].id).addClass('redColour');
@@ -249,5 +249,14 @@ class Tile {
                 }
             }
         }
+    }
+
+    contains(array){
+        for(let i = 0; i < array.length; i++){
+            if(this.row == array[i].row && this.column == array[i].column){
+                return true;
+            }
+        }
+        return false;
     }
 }
