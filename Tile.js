@@ -219,22 +219,32 @@ class Tile {
      *
      * @param add (boolean) whether to add or remove the selectedGroup attribute
      */
-    setActiveGroups(add){
+    setActiveGroups(){
+        // clear all old active groups
+        for(let i = 0; i < 9; i++){
+            for (let j = 0; j < 9; j++){
+                $('#' + currSudoku.grid[i][j].id).removeClass('validAndInvalid');
+                $('#' + currSudoku.grid[i][j].id).removeClass('redColour');
+                $('#' + currSudoku.grid[i][j].id).removeClass('selectedGroup');
+            }
+        }
+
         let arrayOfAllActiveTiles = this.getArrayOfActiveTiles();
 
         for(let i = 0; i < arrayOfAllActiveTiles.length; i++) {
-                if(add) {
-                    if((      (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row
-                            || arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column
-                            || arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square)
+                    let rowInvalid = arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row;
+                    let colInvalid = arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column;
+                    let squareInvalid = arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square;
 
-                        &&    ((!arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
+                    // if invalid, and also valid
+                    if(((rowInvalid || colInvalid || squareInvalid)
+                        &&  ((!arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
                             || (!arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row)
                             || (!arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square))
                     )){
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('validAndInvalid');
                     } else
-                    if    ((arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
+                        if ((arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
                         || (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row)
                         || (arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square)){
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('redColour');
@@ -242,12 +252,6 @@ class Tile {
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('selectedGroup');
                     }
                 }
-                else if (!add) {
-                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('validAndInvalid');
-                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('redColour');
-                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('selectedGroup');
-                }
-        }
         console.log(arrayOfAllActiveTiles);
     }
 
