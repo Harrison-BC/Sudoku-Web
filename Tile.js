@@ -105,10 +105,17 @@ class Tile {
          let squareValid = this.squareIsValid();
          let rowValid = this.rowIsValid();
          let colValid = this.colIsValid();
+         this.partOfInvalidRow = !rowValid;
+         this.partOfInvalidCol = !colValid;
+         this.partofInvalidSquare = !squareValid;
          this.partOfInvalidRowColOrSquare = !squareValid || !rowValid || !colValid;
 
          if(squareValid || rowValid || colValid){
-             this.partOfValidRowColOrSquare = true;
+             // this.partOfInvalidRow = true;
+             // this.partOfInvalidCol = true;
+             // this.partofInvalidSquare = true;
+
+             // this.partOfValidRowColOrSquare = true;
          }
         // console.log(this.rowNum + " " + this.colNum + "\t" + "isValid?: " + (!squareValid || !rowValid || !colValid));
          return (squareValid && rowValid && colValid);
@@ -196,65 +203,122 @@ class Tile {
      * @param add (boolean) whether to add or remove the selectedGroup attribute
      */
     setActiveGroups(add){
-        for(let i = 0; i < this.row.length; i++){
-            if(add) {
-                if(this.row[i].partOfInvalidRowColOrSquare && this.row[i].partOfValidRowColOrSquare){
-                    $('#' + this.row[i].id).addClass('validAndInvalid');
-                } else if (this.row[i].partOfInvalidRowColOrSquare){
-                    $('#' + this.row[i].id).addClass('redColour');
-                } else {
-                    $('#' + this.row[i].id).addClass('selectedGroup');
-                }
-            }
-            else if (!add) {
-                $('#' + this.row[i].id).removeClass('validAndInvalid');
-                $('#' + this.row[i].id).removeClass('redColour');
-                $('#' + this.row[i].id).removeClass('selectedGroup');
-            }
-        }
+        let arrayOfAllActiveTiles = [];
 
-        for(let i = 0; i < this.column.length; i++){
-            if(add) {
-                if(this.column[i].partOfInvalidRowColOrSquare && this.column[i].partOfValidRowColOrSquare){
-                    $('#' + this.column[i].id).addClass('validAndInvalid');
-                } else if (this.column[i].partOfInvalidRowColOrSquare){
-                    $('#' + this.column[i].id).addClass('redColour');
-                } else {
-                    $('#' + this.column[i].id).addClass('selectedGroup');
-                }
-            }
-            else if (!add) {
-                $('#' + this.column[i].id).removeClass('validAndInvalid');
-                $('#' + this.column[i].id).removeClass('redColour');
-                $('#' + this.column[i].id).removeClass('selectedGroup');
-            }
+        for(let i = 0; i < 9; i++){
+            arrayOfAllActiveTiles.push(this.row[i]);
+            arrayOfAllActiveTiles.push(this.column[i]);
         }
 
         for(let i = 0; i < this.square.length; i++) {
             for(let j = 0; j < this.square[i].length; j++) {
+                arrayOfAllActiveTiles.push(this.square[i][j]);
+            }
+        }
+
+        // for(let i = 0; i < this.row.length; i++){
+        //     if(add) {
+        //         // if(this.row[i].partOfInvalidRowColOrSquare && ((!this.row[i].partOfInvalidRow && this.row == this.row[i].getRow()))){
+        //         //     $('#' + this.row[i].id).addClass('validAndInvalid');
+        //         // } else
+        //             if (this.row[i].partOfInvalidRow){
+        //             $('#' + this.row[i].id).addClass('redColour');
+        //         } else {
+        //             $('#' + this.row[i].id).addClass('selectedGroup');
+        //         }
+        //     }
+        //     else if (!add) {
+        //         $('#' + this.row[i].id).removeClass('validAndInvalid');
+        //         $('#' + this.row[i].id).removeClass('redColour');
+        //         $('#' + this.row[i].id).removeClass('selectedGroup');
+        //     }
+        // }
+
+        // for(let i = 0; i < this.column.length; i++){
+        //     if(add) {
+        //         // if(this.column[i].partOfInvalidRowColOrSquare && (
+        //         //     (!this.column[i].partOfInvalidCol && this.column == this.column[i].getColumn())
+        //         // )){
+        //         //     $('#' + this.column[i].id).addClass('validAndInvalid');
+        //         // } else
+        //             if (this.column[i].partOfInvalidCol){
+        //             $('#' + this.column[i].id).addClass('redColour');
+        //         } else {
+        //             $('#' + this.column[i].id).addClass('selectedGroup');
+        //         }
+        //     }
+        //     else if (!add) {
+        //         $('#' + this.column[i].id).removeClass('validAndInvalid');
+        //         $('#' + this.column[i].id).removeClass('redColour');
+        //         $('#' + this.column[i].id).removeClass('selectedGroup');
+        //     }
+        // }
+
+
+        for(let i = 0; i < arrayOfAllActiveTiles.length; i++) {
+            if(add) {
+               // if()
+            }
+            else if (!add) {
+                $('#' + arrayOfAllActiveTiles[i].id).removeClass('validAndInvalid');
+                $('#' + arrayOfAllActiveTiles[i].id).removeClass('redColour');
+                $('#' + arrayOfAllActiveTiles[i].id).removeClass('selectedGroup');
+            }
+        }
+
+        for(let i = 0; i < arrayOfAllActiveTiles.length; i++) {
                 if(add) {
                     //TODO: fix the two added if statements
-                    if(this.square[i][j].partOfInvalidRowColOrSquare && this.square[i][j].partOfValidRowColOrSquare && this.square[i][j].contains(this.row) && this.square[i][j].contains(this.column)){
-                        $('#' + this.square[i][j].id).addClass('validAndInvalid');
-                    } else if (this.square[i][j].partOfInvalidRowColOrSquare){
-                        $('#' + this.square[i][j].id).addClass('redColour');
+                    if((        (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row
+                            || arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column
+                            || arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square)
+
+                        && ((!arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column)  || (!arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row) || (!arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square))
+                        // && (arrayOfAllActiveTiles[i].isIn(this.row) || arrayOfAllActiveTiles[i].isIn(this.column))
+                    )){
+                        $('#' + arrayOfAllActiveTiles[i].id).addClass('validAndInvalid');
+                    } else
+                    if ((arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column)
+                        || (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row)
+                        || (arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square)){
+                        $('#' + arrayOfAllActiveTiles[i].id).addClass('redColour');
                     } else {
-                        $('#' + this.square[i][j].id).addClass('selectedGroup');
+                        $('#' + arrayOfAllActiveTiles[i].id).addClass('selectedGroup');
                     }
                 }
                 else if (!add) {
-                    $('#' + this.square[i][j].id).removeClass('validAndInvalid');
-                    $('#' + this.square[i][j].id).removeClass('redColour');
-                    $('#' + this.square[i][j].id).removeClass('selectedGroup');
+                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('validAndInvalid');
+                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('redColour');
+                    $('#' + arrayOfAllActiveTiles[i].id).removeClass('selectedGroup');
                 }
-            }
         }
+        console.log(arrayOfAllActiveTiles);
     }
 
     contains(array){
         for(let i = 0; i < array.length; i++){
             if(this.row == array[i].row && this.column == array[i].column){
                 return true;
+            }
+        }
+        return false;
+    }
+
+    isIn(array){
+        for(let i = 0; i < array.length; i++){
+            if(this.id == array[i].id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    isInSquare(array){
+        for(let i = 0; i < array.length; i++){
+            for(let j = 0; j < array[0].length; j++){
+                if(this.id == array[i][j].id){
+                    return true;
+                }
             }
         }
         return false;
