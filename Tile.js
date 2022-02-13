@@ -268,19 +268,19 @@ class Tile {
 
         for(let i = 0; i < arrayOfAllActiveTiles.length; i++) {
                 if(add) {
-                    //TODO: fix the two added if statements
-                    if((        (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row
-                            || arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column
-                            || arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square)
+                    if((      (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row
+                            || arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column
+                            || arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square)
 
-                        && ((!arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column)  || (!arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row) || (!arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square))
-                        // && (arrayOfAllActiveTiles[i].isIn(this.row) || arrayOfAllActiveTiles[i].isIn(this.column))
+                        &&    ((!arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
+                            || (!arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row)
+                            || (!arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square))
                     )){
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('validAndInvalid');
                     } else
-                    if ((arrayOfAllActiveTiles[i].partOfInvalidCol && this.column == arrayOfAllActiveTiles[i].column)
-                        || (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row == arrayOfAllActiveTiles[i].row)
-                        || (arrayOfAllActiveTiles[i].partofInvalidSquare && this.square == arrayOfAllActiveTiles[i].square)){
+                    if    ((arrayOfAllActiveTiles[i].partOfInvalidCol && this.column === arrayOfAllActiveTiles[i].column)
+                        || (arrayOfAllActiveTiles[i].partOfInvalidRow && this.row === arrayOfAllActiveTiles[i].row)
+                        || (arrayOfAllActiveTiles[i].partofInvalidSquare && this.square === arrayOfAllActiveTiles[i].square)){
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('redColour');
                     } else {
                         $('#' + arrayOfAllActiveTiles[i].id).addClass('selectedGroup');
