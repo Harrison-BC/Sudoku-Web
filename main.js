@@ -58,11 +58,16 @@ function parseTextInput(sudokuString){
 
 
 function solveSudoku(){
-    if(currSudoku.isValidSudoku() && currSudoku.totalClues >= 17) {
+    let isValidSudoku = currSudoku.isValidSudoku();
+    if(isValidSudoku && currSudoku.totalClues >= 17) {
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
     } else {
-        console.log(currSudoku.totalClues);
+        if(!isValidSudoku){
+            window.alert("The sudoku you are trying to solve is invalid.");
+        } else {
+            window.alert("The sudoku you are trying to solve must contain a minimum of 17 clues.");
+        }
     }
 }
 
