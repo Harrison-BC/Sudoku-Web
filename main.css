@@ -17,7 +17,7 @@ p.number {
 }
 
 .tile:hover {
-    background-color: lightskyblue;
+    background-color: dodgerblue;
 
     /*opacity: 0.1;*/
 }
@@ -39,7 +39,8 @@ body {
 }
 
 .redColour {
-    background-color: #FF8F85;
+    /*background-color: #FF8F85;*/
+    background-color: lightskyblue;
 }
 
 .redColour:hover {
@@ -47,16 +48,19 @@ body {
 }
 
 .selectedGroup {
-    background-color: #5fafff;
+    background-color: lightskyblue;
 }
 
 .validAndInvalid {
-    background-color: #afa0c2;
+    /*background-color: #C3AFC0;*/
+    background-color: lightskyblue;
+    /*background-color: #FF8F85;*/
 }
 
 /*TODO: Change to black and then have text as white when active?*/
 .activeTile {
-    background-color: dodgerblue !important;
+    background-color: white !important;
+/*    #5fafff*/
 }
 
 .redText {
