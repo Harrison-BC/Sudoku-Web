@@ -48,8 +48,10 @@ function parseTextInput(sudokuString){
     if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
         console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
             + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
+        window.alert("Invalid input. Make sure your input contains exactly 81 numbers.");
         return false;
     }
+
     currSudoku.changeNumbers(sudokuString);
     currSudoku.setInvalidTiles();
     currSudoku.updateHtmlNumbers();
