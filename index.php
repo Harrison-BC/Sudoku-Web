@@ -17,6 +17,17 @@
                 <button onclick="parseTextInput(document.getElementById('input').value)">Import Sudoku</button>
             </label>
         </div>
+    <?php
+        include "Sudoku.php";
+        Sudoku::initialise();
+
+        if(isset($_POST['Load Sudoku'])) {
+            echo "This is write that is selected";
+        }
+        if(isset($_POST['button2'])) {
+            echo "This is Button2 that is selected";
+        }
+    ?>
         <div class = 'centeredElems' >
             <h2>Load Sudoku</h2>
             <div id = 'difficulty'>
@@ -30,6 +41,7 @@
             </div>
 <!--        <div class = "centeredElems">-->
             <button id="loadSudoku" onclick="pickSudoku(document.getElementById('qty').value)">Load Sudoku</button>
+            <button>Wrweite</button>
 <!--        </div>-->
         </div>
         <script>
