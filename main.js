@@ -48,8 +48,10 @@ function parseTextInput(sudokuString){
     if(!(sudokuString.length == 81) || !(/^\d+$/.test(sudokuString))){
         console.log("lengthViolation? : " + !(sudokuString.length == 81) + "\n"
             + "character Violation? :" + !(/^\d+$/.test(sudokuString)));
+        window.alert("Invalid input. Make sure your input contains exactly 81 numbers.");
         return false;
     }
+
     currSudoku.changeNumbers(sudokuString);
     currSudoku.setInvalidTiles();
     currSudoku.updateHtmlNumbers();
@@ -58,11 +60,16 @@ function parseTextInput(sudokuString){
 
 
 function solveSudoku(){
-    if(currSudoku.isValidSudoku() && currSudoku.totalClues >= 17) {
+    let isValidSudoku = currSudoku.isValidSudoku();
+    if(isValidSudoku && currSudoku.totalClues >= 17) {
         currSudoku.solve();
         currSudoku.updateHtmlNumbers();
     } else {
-        console.log(currSudoku.totalClues);
+        if(!isValidSudoku){
+            window.alert("The sudoku you are trying to solve is invalid.");
+        } else {
+            window.alert("The sudoku you are trying to solve must contain a minimum of 17 clues.");
+        }
     }
 }
 

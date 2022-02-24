@@ -252,9 +252,9 @@ class Sudoku {
                     } else {
                         $('#' + this.grid[i][j].id).removeClass('redText');
                     }
-                    $('#' + this.grid[i][j].id).addClass('redColour');
+                    // $('#' + this.grid[i][j].id).addClass('redColour');
                 } else {
-                    $('#' + this.grid[i][j].id).removeClass('redColour');
+                    // $('#' + this.grid[i][j].id).removeClass('redColour');
                     $('#' + this.grid[i][j].id).removeClass('redText');
                 }
             }
@@ -273,11 +273,12 @@ class Sudoku {
         this.activeTile = this.grid[row][col];
         // set the active tile colour
 
-
+        // TODO: Change this to JQuery??
         let activeTileElement = document.getElementById(this.activeTile.id);
         activeTileElement.classList.add('activeTile');
         console.log(this.activeTile.id);
         // activeTileElement.style.backgroundColor = "dodgerblue";
+        this.activeTile.setActiveGroups();
     }
 
     updateNumber(number){
@@ -285,6 +286,7 @@ class Sudoku {
             this.activeTile.setNum(parseInt(number));
             // console.log("number is now: " + this.activeTile.getNum());
             this.setInvalidTiles();
+            this.activeTile.setActiveGroups();
             this.updateHtmlNumbers();
         }
     }

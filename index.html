@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link href="main.css" rel="stylesheet">
         <script src="main.js" async=""></script>
         <script src="Sudoku.js" async=""></script>
         <script src="Tile.js" async=""></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
-    <br>
-    <label>
-        <input type="text" id="input" placeholder="Input sudoku here...">
-        <button onclick="parseTextInput(document.getElementById('input').value)">Fill Sudoku</button>
-    </label>
-    <br>
-    <br>
+
     <body onload="onLoad()">
+    <h1 style="text-align: center">Sudoku</h1>
+        <div class = 'centeredElems'>
+            <label>
+                <input type="text" id="input" placeholder="Input sudoku here...">
+                <button onclick="parseTextInput(document.getElementById('input').value)">Import Sudoku</button>
+            </label>
+        </div>
+        <div class = 'centeredElems' >
+            <h2>Load Sudoku</h2>
+            <div id = 'difficulty'>
+                <label>Difficulty:</label><br>
+                <select id="qty" name="qty" class="pretty-classic">
+                    <option>Easy</option>
+                    <option>Medium</option>
+                    <option>Difficult</option>
+                </select>
+            </div>
+<!--        <div class = "centeredElems">-->
+            <button id="loadSudoku" onclick="reload()">Load Sudoku</button>
+<!--        </div>-->
+        </div>
+        <script>
+            $(document).ready(function() {
+                // Initiate Pretty Dropdowns
+                $('.pretty-classic').prettyDropdown({
+                    classic: true,
+                    customClass: 'arrow triangle',
+                    height: 35,
+                });
+            });
+        </script>
+        <br>
+        <br>
         <div id = "sudoku"></div>
-        <button id ="but" onclick="solveSudoku()">Solve</button>
-        <p id="export"></p>
-        <button onclick="copyToClipboard()">Copy Sudoku</button>
+
+        <div class = 'centeredElems'>
+            <button id ="but" onclick="solveSudoku()">Solve</button>
+            <p id="export"></p>
+            <button onclick="copyToClipboard()">Copy Sudoku</button>
+            <link rel="stylesheet" href="prettydropdown/prettydropdowns.css">
+            <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+            <script src="prettydropdown/prettydropdowns.js"></script>
+        </div>
     </body>
 
 </html>
