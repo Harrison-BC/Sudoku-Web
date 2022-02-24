@@ -24,11 +24,12 @@
                 <select id="qty" name="qty" class="pretty-classic">
                     <option>Easy</option>
                     <option>Medium</option>
-                    <option>Difficult</option>
+                    <option>Hard</option>
+                    <option>Pro</option>
                 </select>
             </div>
 <!--        <div class = "centeredElems">-->
-            <button id="loadSudoku" onclick="reload()">Load Sudoku</button>
+            <button id="loadSudoku" onclick="pickSudoku(document.getElementById('qty').value)">Load Sudoku</button>
 <!--        </div>-->
         </div>
         <script>

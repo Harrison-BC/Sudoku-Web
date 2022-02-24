@@ -76,3 +76,20 @@ function solveSudoku(){
 function onLoad(){
     main('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
 }
+
+function pickSudoku(difficulty){
+    switch (difficulty) {
+        case "Easy":
+            console.log("EASY");
+            break;
+        case "Medium":
+            console.log("Mid");
+            break;
+        case "Hard":
+            console.log("hard");
+            break;
+        case "Pro":
+            console.log("proooo");
+            break;
+    }
+}
