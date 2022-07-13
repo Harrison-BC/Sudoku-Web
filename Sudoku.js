@@ -174,7 +174,7 @@ class Sudoku {
             }
         }
     }
-    
+
     toString(){
         let sudoku = "";
         for(let i = 0; i < this.grid.length; i++) {
@@ -204,9 +204,10 @@ class Sudoku {
 
      solve(){
         while(this.templateIsValid){
-            if(!this.rootTile.getIsKnown()){
+            if(this.rootTile != undefined && !this.rootTile.getIsKnown()){
                 if(this.rootTile.getNum() < 9){
                     if(this.setNextValidNumber(this.rootTile)){
+                        // if (this.rootTile ==)
                         this.rootTile = this.rootTile.getNextUnknownTile();
 
                         if (this.rootTile === null) {
@@ -219,6 +220,12 @@ class Sudoku {
 
                 } else this.backtrack();
             } else {
+                if (this.rootTile === undefined) {
+                    // this.won();
+                    console.log("you won");
+                    console.log(this);
+                    return;
+                }
                 this.rootTile = this.rootTile.getNextUnknownTile();
 
             }

@@ -1,8 +1,4 @@
 let currSudoku;
-
-// '004050000900734600003021049035090480090000030076010920310970200009182003000060100'
-// 111111111222222222333333333444444444555555555666666666777777777888888888999999999
-
 var easy = [
     "604200090907004001000000504870453109000086450040100786030000000198670342000000018",
     "075000001016030009400600850030140000000080000000309000060507300000090010000008004",
@@ -104,7 +100,7 @@ var easy = [
     "406123700009456103000080050305000070008000912012670000034091507060230000801007234",
     "000040000000058936050060140690714580820000700714000690309000258071502069002693000",
     "390710025285690004017800900700000060639100008000000000000002090002369470903400002"
-]
+];
 
 function main(sudokuString){
     currSudoku = new Sudoku(sudokuString);
@@ -130,10 +126,12 @@ function main(sudokuString){
 
 }
 
-
+function clearSudoku(){
+    currSudoku.changeNumbers('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    currSudoku.updateHtmlNumbers();
+}
 
 function copyToClipboard(){
-
     /* Copy the text inside the text field */
     let $temp = $("<input>");
     $("body").append($temp);
@@ -189,7 +187,7 @@ function pickSudoku(difficulty){
             parseTextInput(easy[Math.floor(Math.random() * easy.length)]);
             break;
         case "Medium":
-            console.log("Mid");
+            parseTextInput(easy[Math.floor(Math.random() * easy.length)]);
             break;
         case "Hard":
             console.log("hard");

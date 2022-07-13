@@ -15,33 +15,37 @@
             <label>
                 <input type="text" id="input" placeholder="Input sudoku here...">
                 <button onclick="parseTextInput(document.getElementById('input').value)">Import Sudoku</button>
+                <p>This is useful for loading a previously copied sudoku (81 numbers required)</p>
+                <h1><b>Instructions</b></h1><p>Enter numbers directly by clicking on a cell and entering a number.<br> You can use the WASD
+                    or arrow keys to move across cells.<br> To delete a number, press 0 or the backspace key.</p>
+
             </label>
         </div>
-    <?php
-        include "Sudoku.php";
-        Sudoku::initialise();
+<!--    <?php-->
+<!--        include "Sudoku.php";-->
+<!--        Sudoku::initialise();-->
 
-        if(isset($_POST['Load Sudoku'])) {
-            echo "This is write that is selected";
-        }
-        if(isset($_POST['button2'])) {
-            echo "This is Button2 that is selected";
-        }
-    ?>
+<!--        if(isset($_POST['Load Sudoku'])) {-->
+<!--            echo "This is write that is selected";-->
+<!--        }-->
+<!--        if(isset($_POST['button2'])) {-->
+<!--            echo "This is Button2 that is selected";-->
+<!--        }-->
+<!--    ?>-->
         <div class = 'centeredElems' >
-            <h2>Load Sudoku</h2>
-            <div id = 'difficulty'>
-                <label>Difficulty:</label><br>
-                <select id="qty" name="qty" class="pretty-classic">
-                    <option>Easy</option>
-                    <option>Medium</option>
-                    <option>Hard</option>
-                    <option>Pro</option>
-                </select>
-            </div>
+<!--            <h2>Load Sudoku</h2>-->
+<!--            <div id = 'difficulty'>-->
+<!--                <label>Difficulty:</label><br>-->
+<!--                <select id="qty" name="qty" class="pretty-classic">-->
+<!--                    <option>Easy</option>-->
+<!--                    <option>Medium</option>-->
+<!--                    <option>Hard</option>-->
+<!--                    <option>Pro</option>-->
+<!--                </select>-->
+<!--            </div>-->
 <!--        <div class = "centeredElems">-->
-            <button id="loadSudoku" onclick="pickSudoku(document.getElementById('qty').value)">Load Sudoku</button>
-            <button>Wrweite</button>
+            <button id="loadSudoku" onclick="pickSudoku('Easy')">Load Random Sudoku</button>
+
 <!--        </div>-->
         </div>
         <script>
@@ -62,6 +66,7 @@
             <button id ="but" onclick="solveSudoku()">Solve</button>
             <p id="export"></p>
             <button onclick="copyToClipboard()">Copy Sudoku</button>
+            <button onclick="clearSudoku()">Clear Sudoku</button>
             <link rel="stylesheet" href="prettydropdown/prettydropdowns.css">
             <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
             <script src="prettydropdown/prettydropdowns.js"></script>

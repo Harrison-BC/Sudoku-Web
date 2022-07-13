@@ -20,7 +20,7 @@ class Tile {
     getIsKnown(){
         return this.isKnown;
     }
-    
+
      setPastTile(pastTile) {
         this.pastTile = pastTile;
     }
@@ -190,7 +190,7 @@ class Tile {
         let nextUnknownTile = this.getNextTile();
         if(nextUnknownTile == null) return null;
         // console.log("next tile: " + nextUnknownTile.getIsKnown());
-        while(nextUnknownTile.getIsKnown()){
+        while(nextUnknownTile != undefined && nextUnknownTile.getIsKnown()){
             nextUnknownTile = nextUnknownTile.getNextTile();
         }
         return nextUnknownTile;

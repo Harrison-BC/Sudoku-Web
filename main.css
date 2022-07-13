@@ -12,6 +12,12 @@
     display: none;
 }
 
+h1 {
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .tile:hover {
     background-color: lightskyblue;
 }
